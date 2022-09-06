@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "projects": {
+    "foosball-api": "apps/foosball/api",
+    "foosball-auth": "libs/foosball/auth",
+    "foosball-core": "libs/foosball/core",
+    "foosball-data": "libs/foosball/data",
+    "foosball-match": "libs/foosball/match",
+    "foosball-player": "libs/foosball/player",
+    "foosball-profile": "libs/foosball/profile",
+    "foosball-slackbot": "apps/foosball/slackbot"
+  }
+}
