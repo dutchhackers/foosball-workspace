@@ -9,5 +9,6 @@
     "foosball-player": "libs/foosball/player",
     "foosball-profile": "libs/foosball/profile",
     "foosball-slackbot": "apps/foosball/slackbot"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
