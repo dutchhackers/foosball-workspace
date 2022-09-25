@@ -10,7 +10,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(process.cwd(), 'libs/foosball/core/.env'),
+      // envFilePath: join(process.cwd(), 'libs/foosball/core/.env'),
       isGlobal: true,
       load: [configuration],
       validationSchema,
