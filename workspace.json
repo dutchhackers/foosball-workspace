@@ -3,7 +3,8 @@
   "projects": {
     "foosball-api": "apps/foosball-api",
     "foosball-core": "libs/foosball/core",
-    "foosball-data": "libs/foosball/data"
+    "foosball-data": "libs/foosball/data",
+    "slackbot-api": "apps/slackbot-api"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

@@ -30,6 +30,7 @@
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "9.0.11",
     "@nestjs/swagger": "6.1.2",
+    "@slack/web-api": "^6.7.2",
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.10.2",
     "bcryptjs": "^2.4.3",
@@ -92,7 +93,23 @@
   },
   "overrides": {
     "@nestjs/passport": {
-      "passport": "$passport"
+      "passport": "$passport",
+      "@nestjs/passport": "$@nestjs/passport",
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/platform-express": {
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/graphql": {
+      "graphql": "$graphql",
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/jwt": {
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
     }
   }
 }

@@ -1,0 +1,24 @@
+import * as moment from 'moment';
+
+export class TimeDimension {
+  private _date: moment.Moment;
+  constructor(input: string) {
+    this._date = moment(input);
+  }
+
+  get isoDate(): string {
+    return this._date.toISOString();
+  }
+
+  get dayKey(): string {
+    return this._date.format('YYYY-MM-DD');
+  }
+
+  get weekKey(): string {
+    return this._date.format('YYYY-WW');
+  }
+
+  get monthKey(): string {
+    return this._date.format('YYYY-MM');
+  }
+}

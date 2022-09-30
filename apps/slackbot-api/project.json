@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/slackbot-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/slackbot-api",
+        "main": "apps/slackbot-api/src/main.ts",
+        "tsConfig": "apps/slackbot-api/tsconfig.app.json",
+        "assets": ["apps/slackbot-api/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/slackbot-api/src/environments/environment.ts",
+              "with": "apps/slackbot-api/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "slackbot-api:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "slackbot-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/slackbot-api/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
