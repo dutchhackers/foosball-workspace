@@ -16,7 +16,8 @@ export class PlayerService {
     if (data.length) {
       return data[0];
     }
-    throw new Error('player not found');
+    return null;
+    // throw new Error('player not found');
   }
 
   async test() {

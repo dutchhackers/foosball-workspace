@@ -36,6 +36,12 @@ export class AppController {
       // const playerService = new PlayerService(/* Firestore.db*/);
       const player = await this.playerService.getPlayerBySlackId(slackUser.id || payload.user_id);
 
+      if (!player) {
+        return {
+          text: 'sorry, I cannot find this player',
+        };
+      }
+
       return this.client.chat.postMessage({
         channel: payload.channel_id,
         text: `View stats of ${player.displayName}`,
