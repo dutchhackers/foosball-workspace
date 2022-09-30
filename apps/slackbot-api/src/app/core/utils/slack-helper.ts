@@ -1,5 +1,6 @@
 // import { PlayerService } from '../services/player-service';
 import { Response } from 'express';
+import { Player } from '../models/player';
 // import { IOption, IPlayer, IFinalScore } from '../models';
 // import { deserialize } from 'serializr';
 // import { Player } from '../models/player';
@@ -56,31 +57,31 @@ export class SlackHelper {
   //   return `Successfully updated your profile ${player.getDisplayName()}!`;
   // }
 
-  // static async getDefaultLeaderboard(db: FirebaseFirestore.Firestore, options: IDefaultLeaderboardOpts = {}): Promise<any> {
-  //   const query = db.collection('players').where('totalHumiliations', '>=', 0);
-  //   const snapshot = await query.orderBy('totalHumiliations', 'desc').get();
-  //   const snapshotData = snapshot.docs.map(p => deserialize<Player>(Player, p.data()));
-  //   const filteredData = applyFilter(snapshotData, options);
+  static async getDefaultLeaderboard(db: FirebaseFirestore.Firestore, options: IDefaultLeaderboardOpts = {}): Promise<any> {
+    const query = db.collection('players').where('totalHumiliations', '>=', 0);
+    const snapshot = await query.orderBy('totalHumiliations', 'desc').get();
+    const snapshotData = snapshot.docs.map(p => /*deserialize<Player>(Player, p.data())*/ p.data());
+    const filteredData = snapshotData; //applyFilter(snapshotData, options);
 
-  //   let count = 0;
-  //   const items = [];
-  //   for (const player of filteredData) {
-  //     count++;
-  //     items.push({
-  //       rank: count,
-  //       title: player.getDisplayName(),
-  //       score: player.totalHumiliations,
-  //       wins: player.totalWins,
-  //       losses: player.totalLosses,
-  //       streakText: player.currentStreakText(),
-  //     });
-  //   }
+    let count = 0;
+    const items = [];
+    for (const player of filteredData) {
+      count++;
+      items.push({
+        rank: count,
+        title: player.displayName || player.name, //player.getDisplayName(),
+        score: player.totalHumiliations,
+        wins: player.totalWins,
+        losses: player.totalLosses,
+        streakText: 'currentStreakText', //player.currentStreakText(),
+      });
+    }
 
-  //   return {
-  //     name: 'Kroepn',
-  //     ranking: items,
-  //   };
-  // }
+    return {
+      name: 'Kroepn',
+      ranking: items,
+    };
+  }
 
   // static async getFoosballStats(db: FirebaseFirestore.Firestore): Promise<any> {
   //   const matchService = new MatchService(db);
