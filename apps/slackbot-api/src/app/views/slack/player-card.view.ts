@@ -6,14 +6,6 @@ export function getPlayerCard(ctx: Player): any {
   return renderBlocks(ctx);
 }
 
-//TODO: refactor out moment
-function moment(input) {
-  return {
-    input,
-    fromNow: function () {},
-  };
-}
-
 function renderBlocks(player: Player) {
   const hWin = player.highestWinStreak || 0;
   const hLose = player.highestLoseStreak || 0;
@@ -48,7 +40,7 @@ function renderBlocks(player: Player) {
           `\n` +
           fieldCurrentStreak +
           fieldTotalMatches +
-          `*Last Match*\t${moment(player.dateLastMatch).fromNow()}`,
+          `*Last Match*\t${player.dateLastMatch}`,
       },
       accessory: {
         type: 'image',
