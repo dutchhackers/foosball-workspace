@@ -1,0 +1,38 @@
+import * as express from 'express';
+
+import { Firestore } from '../utils/firestore-db';
+import { DataMartService } from '../services/datamart-service';
+
+const dataMartRouter = express.Router();
+
+dataMartRouter.get('/matches', async (req, res) => {
+  const service = new DataMartService(Firestore.db);
+  const defaultOpts = { limit: 100 };
+  if (req.query && req.query.limit) {
+    defaultOpts.limit = parseInt(req.query.limit);
+  }
+
+  try {
+    const response: any = await service.getCubeData('matches', defaultOpts);
+    res.json(response);
+  } catch {
+    res.status(400).json('Bad request');
+  }
+});
+
+dataMartRouter.get('/matches-by-player', async (req, res) => {
+  const service = new DataMartService(Firestore.db);
+  const defaultOpts = { limit: 100 };
+  if (req.query && req.query.limit) {
+    defaultOpts.limit = parseInt(req.query.limit);
+  }
+
+  try {
+    const response: any = await service.getCubeData('matches-by-player', defaultOpts);
+    res.json(response);
+  } catch {
+    res.status(400).json('Bad request');
+  }
+});
+
+export { dataMartRouter };

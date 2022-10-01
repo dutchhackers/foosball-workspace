@@ -37,10 +37,34 @@ export class AppController {
         console.log('Run cmd: playercard');
         return this.getPlayerCard(slackRequest);
 
+      case 'foosball':
+      case 'fb':
+        console.log('Run cmd: foosball');
+        return this.runFoosballCommand();
+
+      case 'update-me':
+      case 'um':
+        console.log('Run cmd: update-me');
+        return this.runFoosballCommand();
+
       default:
         console.log('Run cmd: leaderboard');
         return this.getLeaderboard(slackRequest);
     }
+  }
+
+  @Post('foosball')
+  async runFoosballCommand() {
+    return {
+      text: 'Sorry, this command will be back soon.',
+    };
+  }
+
+  @Post('update-me')
+  async runUpdateMeCommand() {
+    return {
+      text: 'Sorry, this command will be back soon.',
+    };
   }
 
   @Post('kroepn-leaderboard')

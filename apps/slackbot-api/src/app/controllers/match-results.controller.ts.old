@@ -1,0 +1,47 @@
+import * as express from 'express';
+
+import { Firestore } from '../utils/firestore-db';
+import { MatchService } from '../services/match-service';
+
+const matchResultRouter = express.Router();
+
+matchResultRouter.get('/', async (req, res) => {
+  const matchService = new MatchService(Firestore.db);
+  const defaultOpts = { limit: 5 };
+  if (req.query && req.query.limit) {
+    defaultOpts.limit = parseInt(req.query.limit);
+  }
+
+  try {
+    const response: any = await matchService.getMatches(defaultOpts);
+    res.json(response);
+  } catch {
+    res.status(400).json('Bad request');
+  }
+});
+
+// Easiest way to report a new match result
+matchResultRouter.post('/', async (req, res) => {
+  const matchService = new MatchService(Firestore.db);
+  const requestData: any = req.body;
+  const matchDataOpts: any = {};
+
+  if (!requestData.homeTeamIds || !requestData.awayTeamIds) {
+    res.status(400).json('Bad request');
+    return;
+  }
+
+  if (requestData.matchDate) {
+    matchDataOpts.matchDate = requestData.matchDate;
+  }
+
+  try {
+    const response: any = await matchService.addSimpleMatchResult(requestData.homeTeamIds, requestData.awayTeamIds, requestData.finalScore, matchDataOpts);
+    res.status(201).json(response);
+  } catch(e) {
+    console.log(e);
+    res.status(400).json('Bad request');
+  }
+});
+
+export { matchResultRouter };
