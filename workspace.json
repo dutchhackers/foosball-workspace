@@ -4,6 +4,7 @@
     "foosball-api": "apps/foosball-api",
     "foosball-core": "libs/foosball/core",
     "foosball-data": "libs/foosball/data",
+    "shared-dto": "libs/shared/dto",
     "slackbot-api": "apps/slackbot-api"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"

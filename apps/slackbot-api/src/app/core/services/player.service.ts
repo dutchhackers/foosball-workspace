@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataService } from '@foosball/data';
-import { IPlayer, Player } from '../models/player';
+import { IPlayer } from '@foosball/dto';
+import { Player } from '../models/player';
 import { CoreService } from './abstract-service';
 
 const PLAYERS_COLLECTION = 'players';

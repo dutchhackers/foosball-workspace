@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@foosball/core": ["libs/foosball/core/src/index.ts"],
-      "@foosball/data": ["libs/foosball/data/src/index.ts"]
+      "@foosball/data": ["libs/foosball/data/src/index.ts"],
+      "@foosball/dto": ["libs/shared/dto/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
