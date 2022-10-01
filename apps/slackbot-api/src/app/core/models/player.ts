@@ -1,40 +1,9 @@
 import { FirestoreDocument } from './document';
 import { serializable, custom } from 'serializr';
 import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from './serializers/common.serializer';
+import { IPlayer } from '@foosball/dto';
 
 const DEFAULT_AVATAR_URL = 'https://picsum.photos/200?grayscale&blur=2';
-
-export interface IPlayer {
-  id: string;
-  name: string;
-  nickname?: string;
-  avatar: string;
-  slackId?: string;
-  status?: string;
-  quote?: string;
-  displayName?: string;
-
-  /**  player stats*/
-  totalMatches?: number;
-  totalWins?: number;
-  totalFlawlessVictories?: number;
-  totalLosses?: number;
-  totalHumiliations?: number;
-  totalSuckerpunches?: number;
-  totalKnockouts?: number;
-  dateLastMatch?: string;
-  dateLastWin?: string;
-  dateLastFlawlessVictory?: string;
-  dateLastLose?: string;
-  dateLastHumiliation?: string;
-
-  winStreak?: number;
-  highestWinStreak?: number;
-  loseStreak?: number;
-  highestLoseStreak?: number;
-
-  getDisplayName(): string;
-}
 
 export class Player extends FirestoreDocument implements IPlayer {
   @serializable

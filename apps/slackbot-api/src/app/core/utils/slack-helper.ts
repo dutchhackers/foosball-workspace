@@ -1,7 +1,8 @@
 // import { PlayerService } from '../services/player-service';
+import { IPlayer } from '@foosball/dto';
 import { Response } from 'express';
 import { IFinalScore, IOption } from '../models';
-import { IPlayer, Player } from '../models/player';
+import { Player } from '../models/player';
 import { MatchService } from '../services/match.service';
 import { PlayerService } from '../services/player.service';
 // import { IOption, IPlayer, IFinalScore } from '../models';
@@ -17,6 +18,7 @@ interface IDefaultLeaderboardOpts {
 
 export class SlackHelper {
   static async acknowledge(res?: Response | any) {
+    console.log('[player-card] Event Acknowledged');
     console.debug(`SlackHelper.acknowledge isn't implemented properly.`);
   }
 
