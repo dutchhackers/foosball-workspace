@@ -30,7 +30,7 @@
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "9.0.11",
     "@nestjs/swagger": "6.1.2",
-    "@prisma/client": "^3.15.2",
+    "@slack/web-api": "^6.7.2",
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.10.2",
     "bcryptjs": "^2.4.3",
@@ -42,12 +42,13 @@
     "graphql": "^15.8.0",
     "graphql-tools": "^8.3.5",
     "joi": "^17.6.0",
-    "luxon": "^3.0.3",
+    "luxon": "^3.0.4",
     "passport": "^0.6.0",
     "passport-firebase-jwt": "^1.2.1",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
+    "serializr": "^2.0.5",
     "swagger-ui-express": "^4.5.0",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.8"
@@ -88,13 +89,28 @@
     "jest-preset-angular": "12.2.2",
     "nx": "14.6.4",
     "prettier": "2.7.1",
-    "prisma": "^3.15.2",
     "ts-jest": "28.0.8",
     "typescript": "4.7.4"
   },
   "overrides": {
     "@nestjs/passport": {
-      "passport": "$passport"
+      "passport": "$passport",
+      "@nestjs/passport": "$@nestjs/passport",
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/platform-express": {
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/graphql": {
+      "graphql": "$graphql",
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
+    },
+    "@nestjs/jwt": {
+      "@nestjs/common": "$@nestjs/common",
+      "@nestjs/core": "$@nestjs/core"
     }
   }
 }

@@ -1,0 +1,16 @@
+import { MatchResult } from '../../models';
+import { deserialize } from 'serializr';
+
+export async function matchResultToBot(message: any) {
+  console.log('[matchResultToBot] Sent match result to Bot');
+
+  const matchResult = deserialize(MatchResult, message.json);
+  await execute(matchResult);
+}
+
+async function execute(match: MatchResult): Promise<void> {
+  console.log('execute matchResultToBot');
+
+  // Print debug info
+  match.debugPrint();
+}

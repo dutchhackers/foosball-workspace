@@ -1,46 +1,24 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-// import { ConfigService } from '@nestjs/config'
-import { PrismaClient } from '../../generated';
+import * as firebase from 'firebase-admin';
 
 @Injectable()
-export class DataService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class DataService extends firebase.firestore.Firestore implements OnModuleInit, OnModuleDestroy {
+
   constructor() {
     super();
   }
 
   public async onModuleDestroy() {
-    await this.$disconnect();
+    // await this.$disconnect();
   }
 
   public async onModuleInit() {
-    await this.$connect();
+    // const app = firebase.initializeApp({
+    //   credential: firebase.credential.applicationDefault()
+    // }, 'firestoreApp');
 
     // More specific init needed?
-    Logger.log('Prisma client connected'); // Example of logging
+    Logger.log('Firestore client connected'); // Example of logging
   }
 
-  async createUser({ email, password }: { email: string; password: string }) {
-    return this.user.create({
-      data: {
-        email,
-        password,
-      },
-    });
-  }
-
-  async findUserByEmail(email: string) {
-    return this.user.findUnique({
-      where: {
-        email,
-      },
-    });
-  }
-
-  async findUserById(userId: number) {
-    return this.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-  }
 }

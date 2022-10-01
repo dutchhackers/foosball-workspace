@@ -1,0 +1,18 @@
+/**
+ * R. Super, 2019-07-12 16:17
+ * Move4Mobile BV
+ *
+ * apidoc.controller.ts - server
+ * Foosball API doc
+ */
+ 
+import { Router } from 'express';
+import * as YAML from 'yamljs';
+import * as swagger from 'swagger-ui-express';
+
+const docRouter = Router();
+const apiSpec = YAML.load(__dirname + '/../doc/apidoc.yaml');
+
+docRouter.use('/', swagger.serve, swagger.setup(apiSpec));
+
+export default docRouter;
