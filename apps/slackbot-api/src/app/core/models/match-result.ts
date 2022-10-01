@@ -1,5 +1,6 @@
 import { serializable, custom, list, object } from 'serializr';
-import * as moment from 'moment';
+// import * as moment from 'moment';
+import { DateTime } from 'luxon';
 import { FirestoreDocument } from './document';
 import { IFinalScore, IPlayer } from '.';
 import { stringArraySerializer, stringArrayDeserializer } from './serializers/string-array.serializer';
@@ -177,6 +178,10 @@ export class MatchResult extends FirestoreDocument implements IMatchResult {
     const homeTeam = this.homeTeam.map((p: any) => p.name);
     const awayTeam = this.awayTeam.map((p: any) => p.name);
 
-    console.log(`[${moment(this.matchDate).format('DD-MM-YYYY-HH:mm')}] ${homeTeam.join(' & ')} VS ${awayTeam.join(' & ')} (${this.finalScore.join(' - ')})`);
+    // console.log(
+    //   `[${DateTime.fromObject(this.matchDate).format('DD-MM-YYYY-HH:mm')}] ${homeTeam.join(' & ')} VS ${awayTeam.join(
+    //     ' & '
+    //   )} (${this.finalScore.join(' - ')})`
+    // );
   }
 }

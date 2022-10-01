@@ -1,6 +1,6 @@
-// import { FirestoreDocument } from './document';
-// import { serializable, custom } from 'serializr';
-// import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from './serializers/common.serializer';
+import { FirestoreDocument } from './document';
+import { serializable, custom } from 'serializr';
+import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from './serializers/common.serializer';
 
 const DEFAULT_AVATAR_URL = 'https://picsum.photos/200?grayscale&blur=2';
 
@@ -36,90 +36,90 @@ export interface IPlayer {
   getDisplayName(): string;
 }
 
-export class Player /* extends FirestoreDocument */ implements IPlayer {
-  // @serializable
+export class Player extends FirestoreDocument implements IPlayer {
+  @serializable
   id!: string;
 
-  // @serializable
+  @serializable
   name!: string;
 
-  // @serializable
+  @serializable
   nickname?: string;
 
-  // @serializable(custom(serializeFunction, deserializeFunctionIgnoreNull))
+  @serializable(custom(serializeFunction, deserializeFunctionIgnoreNull))
   avatar: string = DEFAULT_AVATAR_URL;
 
-  // @serializable
+  @serializable
   slackId?: string;
 
-  // @serializable
+  @serializable
   status?: string;
 
-  // @serializable
+  @serializable
   quote?: string;
 
-  // @serializable
+  @serializable
   displayName?: string;
 
   /**  player stats*/
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalMatches: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalWins: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalFlawlessVictories: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalLosses: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalHumiliations: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalSuckerpunches: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   totalKnockouts: number = 0;
 
-  // @serializable
+  @serializable
   dateLastMatch?: string;
 
-  // @serializable
+  @serializable
   dateLastWin?: string;
 
-  // @serializable
+  @serializable
   dateLastFlawlessVictory?: string;
 
-  // @serializable
+  @serializable
   dateLastLose?: string;
 
-  // @serializable
+  @serializable
   dateLastHumiliation?: string;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   winStreak: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   highestWinStreak: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   loseStreak: number = 0;
 
-  // @serializable(numberMetric())
+  @serializable(numberMetric())
   highestLoseStreak: number = 0;
 
   getDisplayName(): string {
     return this.displayName || this.name;
   }
 
-  // currentStreakText(): string {
-  //   if (this.winStreak > this.loseStreak) {
-  //     return this.winStreak + ' wins';
-  //   } else if (this.winStreak < this.loseStreak) {
-  //     return this.loseStreak + ' defeats';
-  //   }
-  //   return '';
-  // }
+  currentStreakText(): string {
+    if (this.winStreak > this.loseStreak) {
+      return this.winStreak + ' wins';
+    } else if (this.winStreak < this.loseStreak) {
+      return this.loseStreak + ' defeats';
+    }
+    return '';
+  }
 }

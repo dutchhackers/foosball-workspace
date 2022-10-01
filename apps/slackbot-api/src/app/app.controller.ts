@@ -21,12 +21,34 @@ export class AppController {
     this.client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
   }
 
+  @Post('exec-cmd')
+  async runCommand(@Body() slackRequest: any) {
+    const cmd = slackRequest.text;
+    console.log('Run cmd: ' + cmd);
+
+    switch (cmd) {
+      case 'lb':
+      case 'leaderboard':
+        console.log('Run cmd: leaderboard');
+        return this.getLeaderboard(slackRequest);
+
+      case 'pc':
+      case 'player-card':
+        console.log('Run cmd: playercard');
+        return this.getPlayerCard(slackRequest);
+
+      default:
+        console.log('Run cmd: leaderboard');
+        return this.getLeaderboard(slackRequest);
+    }
+  }
+
   @Post('kroepn-leaderboard')
   async getLeaderboard(@Body() input: any) {
     const payload = input;
     console.log('[kroepn-leaderboard] Received', payload);
 
-    // await SlackHelper.acknowledge(res);
+    await SlackHelper.acknowledge();
     console.log('[kroepn-leaderboard] Event Acknowledged');
 
     const timestamp = DateTime.local().plus({ day: -30 }); // Filter on players who did play in the last N days

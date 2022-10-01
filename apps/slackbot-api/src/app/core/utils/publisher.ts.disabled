@@ -1,0 +1,26 @@
+import { PubSub } from '@google-cloud/pubsub';
+
+export class Publisher {
+  private _pubsub: any;
+  constructor(opts: any = {}) {
+    const { projectId, keyFilename } = opts;
+    this._pubsub = new PubSub({
+      projectId: projectId ? projectId : undefined,
+      keyFilename: keyFilename ? keyFilename : undefined,
+    });
+  }
+
+  public async publishMessage(data: any, topic: string): Promise<void> {
+    if (!topic) {
+      throw Error('topic is null');
+    }
+    const dataBuffer = Buffer.from(JSON.stringify(data));
+
+    try {
+      const messageId = await this._pubsub.topic(topic).publish(dataBuffer);
+      console.log(`Message ${messageId} published.`, JSON.stringify(data));
+    } catch (error) {
+      console.error('ERROR:', error);
+    }
+  }
+}
