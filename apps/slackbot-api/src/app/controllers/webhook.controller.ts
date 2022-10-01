@@ -1,19 +1,19 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
 import { WebClient } from '@slack/web-api';
-import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from './core/utils/config';
+import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/utils/config';
 
-import { AppService } from './app.service';
-import { PlayerService } from './core/services/player.service';
-import { formatKroepnLeaderboardRow, parseSlackUser } from './core/utils';
-import { addViewedBySnippetToBlock, SlackHelper } from './core/utils/slack-helper';
-import { getPlayerCard } from './views/slack';
+import { AppService } from '../app.service';
+import { PlayerService } from '../core/services/player.service';
+import { formatKroepnLeaderboardRow, parseSlackUser } from '../core/utils';
+import { addViewedBySnippetToBlock, SlackHelper } from '../core/utils/slack-helper';
+import { getPlayerCard } from '../views/slack';
 
 import { DateTime } from 'luxon';
 import { DataService } from '@foosball/data';
 
-@Controller()
-export class AppController {
+@Controller('')
+export class WebhookController {
   private client: WebClient;
 
   constructor(private readonly appService: AppService, private readonly data: DataService, private readonly playerService: PlayerService) {
