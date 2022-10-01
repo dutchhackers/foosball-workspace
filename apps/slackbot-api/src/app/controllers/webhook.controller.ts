@@ -17,7 +17,6 @@ export class WebhookController {
   private client: WebClient;
 
   constructor(private readonly appService: AppService, private readonly data: DataService, private readonly playerService: PlayerService) {
-    console.log(SLACK_OAUTH_ACCESS_TOKEN);
     this.client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
   }
 
