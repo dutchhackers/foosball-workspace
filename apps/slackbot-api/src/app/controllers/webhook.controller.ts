@@ -72,7 +72,6 @@ export class WebhookController {
     console.log('[kroepn-leaderboard] Received', payload);
 
     await SlackHelper.acknowledge();
-    console.log('[kroepn-leaderboard] Event Acknowledged');
 
     const timestamp = DateTime.local().plus({ day: -30 }); // Filter on players who did play in the last N days
     const leaderboard = await SlackHelper.getDefaultLeaderboard(this.data, { minDateLastMatch: timestamp.toISO() });
@@ -94,8 +93,7 @@ export class WebhookController {
     const payload = input;
     console.log('[player-card] Received', payload);
 
-    // await SlackHelper.acknowledge(res);
-    console.log('[player-card] Event Acknowledged');
+    await SlackHelper.acknowledge();
 
     try {
       const slackUser = parseSlackUser(payload.text);
