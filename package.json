@@ -23,14 +23,14 @@
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.10.2",
     "bcryptjs": "^2.4.3",
-    "cache-manager": "^4.1.0",
+    "cache-manager": "^5.0.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.2",
     "firebase-admin": "^11.0.0",
     "google-spreadsheet": "^3.3.0",
     "graphql": "^15.8.0",
     "graphql-tools": "^8.3.5",
-    "joi": "^17.6.0",
+    "joi": "^17.6.2",
     "luxon": "^3.0.4",
     "passport": "^0.6.0",
     "passport-firebase-jwt": "^1.2.1",
@@ -94,4 +94,3 @@
     }
   }
 }
-
