@@ -3,7 +3,7 @@ import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
 import { WebClient, LogLevel } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/config';
 
-import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser, Callback, IOption } from '@foosball/api/common';
+import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser, Callback, IOption, MatchService } from '@foosball/api/common';
 import { DataService } from '@foosball/api/data';
 import { DateTime } from 'luxon';
 import { SlackHelper, addViewedBySnippetToBlock } from '../core/utils';
@@ -15,7 +15,11 @@ import { Response } from 'express';
 export class WebhookController {
   private client: WebClient;
 
-  constructor(private readonly data: DataService, private readonly playerService: PlayerService) {
+  constructor(
+    private readonly data: DataService,
+    private readonly playerService: PlayerService,
+    private readonly matchService: MatchService
+  ) {
     this.client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN, {
       // logLevel: LogLevel.DEBUG,
     });
@@ -260,7 +264,7 @@ export class WebhookController {
         console.log('[interactive] Add match result', { homeTeam, awayTeam, finalScore });
 
         // const matchService = new MatchService(Firestore.db);
-        // await this.matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
+        await this.matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
 
         const players = await this.playerService.getPlayersById([...homeTeam, ...awayTeam]);
 
