@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 
+// import { Publisher } from '../utils/publisher';
+import { DataService } from '@foosball/api/data';
+import { IFinalScore, IPlayer } from '@foosball/dto';
 import { IMatchResult } from '../models';
 import { MatchResult } from '../models/match-result';
 import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
-// import { Publisher } from '../utils/publisher';
-
-import { DataService } from '@foosball/api/data';
-import { IFinalScore, IPlayer } from '@foosball/dto';
-import { StatsService } from '../services/stats.service';
 import { CoreService } from './abstract-service';
-export { MatchServiceHelper } from '../services/match-service-helper';
+import { StatsService } from './stats.service';
+export { MatchServiceHelper } from './match-service-helper';
 
 const MATCHES_COLLECTION = Collection.MATCHES;
 const PLAYERS_COLLECTION = Collection.PLAYERS;
