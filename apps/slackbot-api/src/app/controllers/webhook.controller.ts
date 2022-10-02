@@ -231,7 +231,7 @@ export class WebhookController {
     const { user, submission, callback_id } = payload;
 
     switch (callback_id) {
-      case Callback.FOOSBALL_MATCH:
+      case Callback.FOOSBALL_MATCH: {
         const { team1player1, team1player2, team2player1, team2player2, score1, score2 } = submission;
         const errors = [];
         if (isNaN(score1)) {
@@ -275,7 +275,8 @@ export class WebhookController {
           channel: SLACK_DEDICATED_CHANNEL || payload.channel.id,
           text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
         });
-      case Callback.UPDATE_ME:
+      }
+      case Callback.UPDATE_ME: {
         const { nickname, status, quote } = submission;
 
         const player = await this.playerService.getPlayerBySlackId(user.id);
@@ -289,6 +290,7 @@ export class WebhookController {
           channel: payload.channel.id,
           text: SlackHelper.buildUpdateProfileString(player),
         });
+      }
     }
   }
   @Post('options-load-endpoint')
@@ -303,13 +305,14 @@ export class WebhookController {
     const options: IOption[] = [];
 
     switch (callback_id) {
-      case Callback.FOOSBALL_MATCH:
+      case Callback.FOOSBALL_MATCH: {
         const playerOptions = await SlackHelper.getExternalDataOptions(this.playerService, 'players');
         const filteredPlayerOptions = playerOptions.filter(
           (option: IOption) => option.label.toLowerCase().indexOf(value.toLowerCase()) >= 0
         );
         options.push(...filteredPlayerOptions);
         break;
+      }
     }
     return SlackHelper.send(response, {
       options,
