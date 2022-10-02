@@ -1,6 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 
-import { WebClient } from '@slack/web-api';
+import { WebClient, LogLevel } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/config';
 
 import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser, Callback } from '@foosball/api/common';
@@ -15,7 +15,9 @@ export class WebhookController {
   private client: WebClient;
 
   constructor(private readonly data: DataService, private readonly playerService: PlayerService) {
-    this.client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
+    this.client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN, {
+      // logLevel: LogLevel.DEBUG,
+    });
   }
 
   @Post('exec-cmd')
@@ -74,7 +76,7 @@ export class WebhookController {
         callback_id: Callback.UPDATE_ME,
         title: 'Profile',
         submit_label: 'Save',
-        notify_on_cancel: true,
+        // notify_on_cancel: true,
         elements: [
           {
             label: 'Nickname',
@@ -158,14 +160,16 @@ export class WebhookController {
     }
   }
 
+  @HttpCode(200)
   @Post('interactive')
   async interactiveCallback(@Body() input: any) {
-    const payload = input; // JSON.parse(req.body.payload);
-    console.log('[interactive] Received', payload);
+    console.log('[interactive] Received');
+
+    const payload = JSON.parse(input.payload);
+    console.log(payload);
 
     const { user, submission, callback_id } = payload;
 
-    // const playerService = new PlayerService(Firestore.db);
     switch (callback_id) {
       case Callback.FOOSBALL_MATCH:
         const { team1player1, team1player2, team2player1, team2player2, score1, score2 } = submission;
@@ -217,12 +221,16 @@ export class WebhookController {
         const player = await this.playerService.getPlayerBySlackId(user.id);
         await this.playerService.updatePlayer(player.id, { nickname, status, quote });
         // await SlackHelper.acknowledge();
-        return this.client.chat.postEphemeral({
+
+        this.client.chat.postEphemeral({
           user: user.id,
           channel: payload.channel.id,
           text: SlackHelper.buildUpdateProfileString(player),
         });
-      // break;
+
+        return {
+          text: 'got it',
+        };
     }
     return SlackHelper.acknowledge();
   }
