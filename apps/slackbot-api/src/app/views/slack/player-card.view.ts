@@ -1,6 +1,6 @@
 // import * as moment from 'moment';
-import { Player } from '../../core/models/player';
-// import { Player } from '../../models';
+
+import { Player } from '@foosball/api/common';
 
 export function getPlayerCard(ctx: Player): any {
   return renderBlocks(ctx);

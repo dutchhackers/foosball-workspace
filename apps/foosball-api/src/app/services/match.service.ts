@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 
 @Injectable()
 export class MatchService {

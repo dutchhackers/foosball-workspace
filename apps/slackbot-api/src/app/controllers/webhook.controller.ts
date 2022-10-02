@@ -1,15 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { WebClient } from '@slack/web-api';
-import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/utils/config';
+import { SLACK_OAUTH_ACCESS_TOKEN } from '../core/config';
 
-import { PlayerService } from '../core/services/player.service';
-import { formatKroepnLeaderboardRow, parseSlackUser } from '../core/utils';
-import { addViewedBySnippetToBlock, SlackHelper } from '../core/utils/slack-helper';
-import { getPlayerCard } from '../views/slack';
-
+import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser } from '@foosball/api/common';
+import { DataService } from '@foosball/api/data';
 import { DateTime } from 'luxon';
-import { DataService } from '@foosball/data';
+import { SlackHelper, addViewedBySnippetToBlock } from '../core/utils';
+import { getPlayerCard } from '../views/slack';
 
 @Controller('')
 export class WebhookController {

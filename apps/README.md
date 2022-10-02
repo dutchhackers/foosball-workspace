@@ -4,8 +4,8 @@
 
 | App name | Stack setup                 | Status         | Description            |
 | -------- | --------------------------- | -------------- | ---------------------- |
-| api      | NestJS + GraphQL + Prisma 2 | In Development | Foosball API (backend) |
-| slackbot | NestJS                      | Not Started    | Foosball Slackbot      |
+| api      | NestJS                      | In Development | Foosball API (backend) |
+| slackbot | NestJS                      | In Development | Foosball Slackbot      |
 
 ## Development setup
 
