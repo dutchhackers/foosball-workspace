@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
 
 import { WebClient, LogLevel } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/config';
@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import { SlackHelper, addViewedBySnippetToBlock } from '../core/utils';
 import { getPlayerCard } from '../views/slack';
 import { IFinalScore } from '@foosball/dto';
+import { Response } from 'express';
 
 @Controller('')
 export class WebhookController {
@@ -160,9 +161,9 @@ export class WebhookController {
     }
   }
 
-  @HttpCode(200)
+  // @HttpCode(200)
   @Post('interactive')
-  async interactiveCallback(@Body() input: any) {
+  async interactiveCallback(@Body() input: any, @Res() response: Response) {
     console.log('[interactive] Received');
 
     const payload = JSON.parse(input.payload);
@@ -193,7 +194,7 @@ export class WebhookController {
         }
 
         // Send ACK, to prevent time-out
-        // SlackHelper.acknowledge(res);
+        SlackHelper.acknowledge(response);
 
         const homeTeam = [team1player1];
         if (team1player2) homeTeam.push(team1player2);
@@ -220,18 +221,15 @@ export class WebhookController {
 
         const player = await this.playerService.getPlayerBySlackId(user.id);
         await this.playerService.updatePlayer(player.id, { nickname, status, quote });
+
         // await SlackHelper.acknowledge();
+        await SlackHelper.acknowledge(response);
 
         this.client.chat.postEphemeral({
           user: user.id,
           channel: payload.channel.id,
           text: SlackHelper.buildUpdateProfileString(player),
         });
-
-        return {
-          text: 'got it',
-        };
     }
-    return SlackHelper.acknowledge();
   }
 }

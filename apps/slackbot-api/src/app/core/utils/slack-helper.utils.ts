@@ -10,9 +10,12 @@ interface IDefaultLeaderboardOpts {
 }
 
 export class SlackHelper {
-  static async acknowledge(res?: Response | any) {
-    console.log('[player-card] Event Acknowledged');
-    console.debug(`SlackHelper.acknowledge isn't implemented properly.`);
+  static async acknowledge(res?: Response | any, body?: any) {
+    if (!res) {
+      return;
+    }
+
+    return this.send(res, body);
   }
 
   static async send(res: Response, body?: any): Promise<Response> {
