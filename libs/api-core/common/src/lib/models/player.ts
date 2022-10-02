@@ -1,6 +1,6 @@
 import { FirestoreDocument } from './document';
 import { serializable, custom } from 'serializr';
-import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from './serializers/common.serializer';
+import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from '../utils/serializers/common.serializer';
 import { IPlayer } from '@foosball/dto';
 
 const DEFAULT_AVATAR_URL = 'https://picsum.photos/200?grayscale&blur=2';

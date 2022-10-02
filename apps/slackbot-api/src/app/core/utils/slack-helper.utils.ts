@@ -1,14 +1,7 @@
-// import { PlayerService } from '../services/player-service';
-import { IPlayer } from '@foosball/dto';
+import { IOption, MatchService, Player, PlayerService } from '@foosball/api/common';
+import { IFinalScore, IPlayer } from '@foosball/dto';
 import { Response } from 'express';
-import { IFinalScore, IOption } from '../models';
-import { Player } from '../models/player';
-import { MatchService } from '../services/match.service';
-import { PlayerService } from '../services/player.service';
-// import { IOption, IPlayer, IFinalScore } from '../models';
-// import { deserialize } from 'serializr';
-// import { Player } from '../models/player';
-// import { MatchService } from '../services/match-service';
+import { deserialize } from 'serializr';
 
 type OptionsValue = 'players' | '_dummy';
 
@@ -65,7 +58,7 @@ export class SlackHelper {
   static async getDefaultLeaderboard(db: FirebaseFirestore.Firestore, options: IDefaultLeaderboardOpts = {}): Promise<any> {
     const query = db.collection('players').where('totalHumiliations', '>=', 0);
     const snapshot = await query.orderBy('totalHumiliations', 'desc').get();
-    const snapshotData = snapshot.docs.map(p => /*deserialize<Player>(Player, p.data())*/ p.data());
+    const snapshotData = snapshot.docs.map(p => deserialize<Player>(Player, p.data()));
     const filteredData = snapshotData; //applyFilter(snapshotData, options);
 
     let count = 0;
@@ -74,11 +67,11 @@ export class SlackHelper {
       count++;
       items.push({
         rank: count,
-        title: player.displayName || player.name, //player.getDisplayName(),
+        title: player.getDisplayName(),
         score: player.totalHumiliations,
         wins: player.totalWins,
         losses: player.totalLosses,
-        streakText: 'currentStreakText', //player.currentStreakText(),
+        streakText: player.currentStreakText(),
       });
     }
 
@@ -89,7 +82,6 @@ export class SlackHelper {
   }
 
   static async getFoosballStats(matchService: MatchService): Promise<any> {
-    // const matchService = new MatchService(db);
     const matches = await matchService.getMatches({ limit: 5 });
 
     const metrics: any = {
@@ -144,6 +136,7 @@ function applyFilter(items: Player[], filter: IDefaultLeaderboardOpts): Player[]
   return result;
 }
 
+// TODO: refactor into SlackApi -> Core
 export function addViewedBySnippetToBlock(blocks: any[], slackUserId: string): any[] {
   if (!slackUserId) {
     return blocks;

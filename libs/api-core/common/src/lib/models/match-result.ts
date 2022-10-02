@@ -2,9 +2,9 @@ import { serializable, custom, list, object } from 'serializr';
 // import * as moment from 'moment';
 import { DateTime } from 'luxon';
 import { FirestoreDocument } from './document';
-import { IFinalScore, IPlayer } from '.';
-import { stringArraySerializer, stringArrayDeserializer } from './serializers/string-array.serializer';
+import { stringArraySerializer, stringArrayDeserializer } from '../utils/serializers/string-array.serializer';
 import { checkFlawlessVictory } from '../utils';
+import { IFinalScore } from '@foosball/dto';
 
 export interface IMatchResultInput {
   matchDate?: string;

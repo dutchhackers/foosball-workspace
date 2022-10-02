@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 import { IMatchResult, MatchResult } from '../models/match-result';
 import { MatchService } from './match.service';
 import { CoreService } from './abstract-service';
 // import moment = require('moment');
 import { checkFlawlessVictory } from '../utils';
-import { ICubeItem } from '../models/cube-item';
+// import { ICubeItem } from '../models/cube-item';
 import { MatchServiceHelper } from './match-service-helper';
-import { IMatchCubeItem } from '../models/match-cube-item';
+// import { IMatchCubeItem } from '../models/match-cube-item';
 import { DataService } from '@foosball/data';
+import { ICubeItem, IMatchCubeItem } from '@foosball/dto';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';
 

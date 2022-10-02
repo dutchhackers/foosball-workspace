@@ -1,4 +1,3 @@
-// import * as moment from 'moment';
 import { DateTime } from 'luxon';
 
 export class TimeDimension {

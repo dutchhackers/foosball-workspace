@@ -1,9 +1,10 @@
 import { TimeDimension } from './../models/time-dimension';
 import { MatchResult } from '../models';
 import { checkFlawlessVictory } from '../utils';
+import { ICubeItem, IMatchCubeItem } from '@foosball/dto';
 // import * as moment from 'moment';
-import { ICubeItem } from '../models/cube-item';
-import { IMatchCubeItem } from '../models/match-cube-item';
+// import { ICubeItem } from '../models/cube-item';
+// import { IMatchCubeItem } from '../models/match-cube-item';
 
 export class MatchServiceHelper {
   static GetMatchCube(match: MatchResult): IMatchCubeItem[] {
