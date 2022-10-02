@@ -91,7 +91,7 @@ function renderBlocks(player: Player) {
   ];
 }
 
-function emojiRange(size: number, emoji: string, whenEmpty: string = '-'): string[] {
+function emojiRange(size: number, emoji: string, whenEmpty = '-'): string[] {
   if (!size) {
     return [whenEmpty];
   }

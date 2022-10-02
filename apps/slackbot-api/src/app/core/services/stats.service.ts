@@ -154,7 +154,7 @@ export class StatsService extends CoreService implements IStatsService {
     }
   }
 
-  private calculateMetrics(flags: any = {}, multiplier: number = 1): IMetrics {
+  private calculateMetrics(flags: any = {}, multiplier = 1): IMetrics {
     const metrics: IMetrics = {};
     const now = new Date().toISOString();
 

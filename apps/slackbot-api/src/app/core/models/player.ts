@@ -32,25 +32,25 @@ export class Player extends FirestoreDocument implements IPlayer {
 
   /**  player stats*/
   @serializable(numberMetric())
-  totalMatches: number = 0;
+  totalMatches = 0;
 
   @serializable(numberMetric())
-  totalWins: number = 0;
+  totalWins = 0;
 
   @serializable(numberMetric())
-  totalFlawlessVictories: number = 0;
+  totalFlawlessVictories = 0;
 
   @serializable(numberMetric())
-  totalLosses: number = 0;
+  totalLosses = 0;
 
   @serializable(numberMetric())
-  totalHumiliations: number = 0;
+  totalHumiliations = 0;
 
   @serializable(numberMetric())
-  totalSuckerpunches: number = 0;
+  totalSuckerpunches = 0;
 
   @serializable(numberMetric())
-  totalKnockouts: number = 0;
+  totalKnockouts = 0;
 
   @serializable
   dateLastMatch?: string;
@@ -68,16 +68,16 @@ export class Player extends FirestoreDocument implements IPlayer {
   dateLastHumiliation?: string;
 
   @serializable(numberMetric())
-  winStreak: number = 0;
+  winStreak = 0;
 
   @serializable(numberMetric())
-  highestWinStreak: number = 0;
+  highestWinStreak = 0;
 
   @serializable(numberMetric())
-  loseStreak: number = 0;
+  loseStreak = 0;
 
   @serializable(numberMetric())
-  highestLoseStreak: number = 0;
+  highestLoseStreak = 0;
 
   getDisplayName(): string {
     return this.displayName || this.name;

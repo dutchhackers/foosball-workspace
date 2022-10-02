@@ -81,7 +81,7 @@ export class MatchService extends CoreService implements IMatchService {
     const matchDate = matchData.matchDate || new Date().toISOString();
     const homeTeamData = await this.getPlayers(homeTeamIds);
     const awayTeamData = await this.getPlayers(awayTeamIds);
-    let toto = totoResult(finalScore);
+    const toto = totoResult(finalScore);
 
     const data: any = {
       creationDate: new Date().toISOString(),
@@ -149,7 +149,7 @@ export class MatchService extends CoreService implements IMatchService {
     }
   }
 
-  private async calculateStats(matchResult: IMatchResult, multiplier: number = 1) {
+  private async calculateStats(matchResult: IMatchResult, multiplier = 1) {
     // const statsService = new StatsService(this.data);
     await this.statsService.generateStats(matchResult, { multiplier });
   }

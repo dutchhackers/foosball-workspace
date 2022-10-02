@@ -123,7 +123,7 @@ export class PlayerService extends CoreService {
   }
 
   async getPlayers(filter: any = {}): Promise<Player[]> {
-    let query = this.data.collection(PLAYERS_COLLECTION).where('active', '==', true);
+    const query = this.data.collection(PLAYERS_COLLECTION).where('active', '==', true);
     const snapshot = await query.get();
     return this.wrapAll<Player>(snapshot, Player);
   }
