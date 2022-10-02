@@ -10,12 +10,7 @@ class AppVersion {
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
-  }
+  constructor() {}
 
   @Get()
   @ApiResponse({
