@@ -10,10 +10,6 @@
   "compilerOptions": {
     "strict": false,
     "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedVars": false,
-    "noInferrableTypes": false,
-    "noEmptyFunction": false,
-    "noExplicitAny": false
+    "noFallthroughCasesInSwitch": true
   }
 }
