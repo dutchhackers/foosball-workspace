@@ -4,13 +4,15 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/slackbot-api",
         "main": "apps/slackbot-api/src/main.ts",
         "tsConfig": "apps/slackbot-api/tsconfig.app.json",
-        "assets": ["apps/slackbot-api/src/assets"]
+        "assets": ["apps/slackbot-api/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -53,14 +55,14 @@
       }
     },
     "dockerize": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "docker build -f ./apps/slackbot-api/server/Dockerfile . -t slackbot-api"
       },
       "parallel": false
     },
     "docker-push": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "if [ {args.projectId} = \"undefined\" ]; then echo \"provide project arg\"; else docker tag slackbot-api gcr.io/{args.projectId}/slackbot-api; fi ",
