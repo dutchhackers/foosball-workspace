@@ -77,7 +77,7 @@ function renderBlocks(player: Player) {
         },
         {
           type: 'mrkdwn',
-          text: `*Kroep\'n*\n${kroepnRange(player.totalHumiliations || 0, 'kroepn', ':no_entry_sign:').join(' ')}`,
+          text: `*Kroep'n*\n${kroepnRange(player.totalHumiliations || 0, 'kroepn', ':no_entry_sign:').join(' ')}`,
         },
         {
           type: 'mrkdwn',
@@ -91,7 +91,7 @@ function renderBlocks(player: Player) {
   ];
 }
 
-function emojiRange(size: number, emoji: string, whenEmpty: string = '-'): string[] {
+function emojiRange(size: number, emoji: string, whenEmpty = '-'): string[] {
   if (!size) {
     return [whenEmpty];
   }

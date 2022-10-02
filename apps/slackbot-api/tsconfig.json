@@ -6,5 +6,10 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true
+  }
 }

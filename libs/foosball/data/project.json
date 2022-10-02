@@ -26,14 +26,8 @@
       "options": {
         "jestConfig": "libs/foosball/data/jest.config.ts",
         "passWithNoTests": true
-      },
-      "dependsOn": [
-        {
-          "target": "generate",
-          "projects": "self"
-        }
-      ]
+      }
     }
   },
-  "tags": ["type:util", "scope:foosball"]
+  "tags": []
 }

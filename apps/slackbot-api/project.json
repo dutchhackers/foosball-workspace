@@ -44,6 +44,14 @@
         "lintFilePatterns": ["apps/slackbot-api/**/*.ts"]
       }
     },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/foosball-api"],
+      "options": {
+        "jestConfig": "apps/slackbot-api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
     "dockerize": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

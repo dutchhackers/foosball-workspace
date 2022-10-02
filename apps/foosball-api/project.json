@@ -45,14 +45,8 @@
       "options": {
         "jestConfig": "apps/foosball-api/jest.config.ts",
         "passWithNoTests": true
-      },
-      "dependsOn": [
-        {
-          "target": "generate",
-          "projects": "dependencies"
-        }
-      ]
+      }
     }
   },
-  "tags": ["type:app", "scope:foosball"]
+  "tags": []
 }
