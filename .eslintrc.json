@@ -11,24 +11,7 @@
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "type:app",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:util"]
-              },
-              {
-                "sourceTag": "type:feature",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:util"]
-              },
-              {
-                "sourceTag": "type:util",
-                "onlyDependOnLibsWithTags": ["type:util"]
-              },
-              {
-                "sourceTag": "scope:foosball",
-                "onlyDependOnLibsWithTags": ["scope:foosball", "scope:foosball-shared", "scope:foosball-core"]
-              }
-            ]
+            "depConstraints": []
           }
         ]
       }
