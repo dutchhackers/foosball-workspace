@@ -10,9 +10,12 @@ interface IDefaultLeaderboardOpts {
 }
 
 export class SlackHelper {
-  static async acknowledge(res?: Response | any) {
-    console.log('[player-card] Event Acknowledged');
-    console.debug(`SlackHelper.acknowledge isn't implemented properly.`);
+  static async acknowledge(res?: Response | any, body?: any) {
+    if (!res) {
+      return;
+    }
+
+    return this.send(res, body);
   }
 
   static async send(res: Response, body?: any): Promise<Response> {
@@ -134,25 +137,4 @@ function applyFilter(items: Player[], filter: IDefaultLeaderboardOpts): Player[]
   }
 
   return result;
-}
-
-// TODO: refactor into SlackApi -> Core
-export function addViewedBySnippetToBlock(blocks: any[], slackUserId: string): any[] {
-  if (!slackUserId) {
-    return blocks;
-  }
-  const response = [
-    ...blocks,
-    {
-      type: 'context',
-      elements: [
-        {
-          type: 'mrkdwn',
-          text: `Requested by <@${slackUserId}>`,
-        },
-      ],
-    },
-  ];
-  console.log('addViewedBySnippetToBlock', response);
-  return response;
 }

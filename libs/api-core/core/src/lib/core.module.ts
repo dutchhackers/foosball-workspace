@@ -18,7 +18,7 @@ import { join } from 'path';
     GraphQLModule.forRoot({
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      autoSchemaFile: join(process.cwd(), 'libs/foosball/core/src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'libs/api-core/core/src/schema.gql'),
     }),
   ],
   controllers: [],

@@ -59,6 +59,15 @@ export class PlayerService extends CoreService {
   }
 
   async updatePlayer(id: string, { name, nickname, avatar, slackId, status, quote }: Partial<Player>): Promise<void> {
+    console.log('updatePlayer', {
+      id,
+      name,
+      nickname,
+      avatar,
+      slackId,
+      status,
+      quote,
+    });
     if (!id) {
       throw Error('id  is null');
     }
