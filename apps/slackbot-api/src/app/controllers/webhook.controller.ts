@@ -3,7 +3,7 @@ import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
 import { WebClient, LogLevel } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/config';
 
-import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser, Callback } from '@foosball/api/common';
+import { formatKroepnLeaderboardRow, PlayerService, parseSlackUser, Callback, IOption } from '@foosball/api/common';
 import { DataService } from '@foosball/api/data';
 import { DateTime } from 'luxon';
 import { SlackHelper, addViewedBySnippetToBlock } from '../core/utils';
@@ -22,7 +22,7 @@ export class WebhookController {
   }
 
   @Post('exec-cmd')
-  async runCommand(@Body() slackRequest: any) {
+  async runCommand(@Body() slackRequest: any, @Res() response: Response) {
     const cmd = slackRequest.text;
     console.log('Run cmd: ' + cmd);
 
@@ -40,7 +40,7 @@ export class WebhookController {
       case 'foosball':
       case 'fb':
         console.log('Run cmd: foosball');
-        return this.runFoosballCommand();
+        return this.runFoosballCommand(slackRequest, response);
 
       case 'update-me':
       case 'um':
@@ -54,10 +54,65 @@ export class WebhookController {
   }
 
   @Post('foosball')
-  async runFoosballCommand() {
-    return {
-      text: 'Sorry, this command will be back soon.',
-    };
+  async runFoosballCommand(@Body() input: any, @Res() response: Response) {
+    const payload = input;
+    console.log('[foosball] Received', payload);
+
+    await SlackHelper.acknowledge(response);
+    console.log('[foosball] Event Acknowledged');
+
+    await this.client.dialog.open({
+      trigger_id: payload.trigger_id,
+      dialog: {
+        callback_id: Callback.FOOSBALL_MATCH,
+        title: 'Foosball Match',
+        submit_label: 'Submit',
+        // "notify_on_cancel": true,
+        elements: [
+          {
+            label: 'Team 1 - Player 1',
+            name: 'team1player1',
+            type: 'select',
+            data_source: 'external',
+          },
+          {
+            label: 'Team 1 - Player 2',
+            placeholder: '',
+            name: 'team1player2',
+            type: 'select',
+            data_source: 'external',
+            optional: true,
+          },
+          {
+            label: 'Score Team 1',
+            name: 'score1',
+            type: 'text',
+            subtype: 'number',
+          },
+          {
+            label: 'Team 2 - Player 1',
+            name: 'team2player1',
+            type: 'select',
+            data_source: 'external',
+          },
+          {
+            label: 'Team 2 - Player 2',
+            placeholder: '',
+            name: 'team2player2',
+            type: 'select',
+            data_source: 'external',
+            optional: true,
+          },
+          {
+            label: 'Score Team 2',
+            name: 'score2',
+            type: 'text',
+            subtype: 'number',
+          },
+        ],
+      },
+    });
+    console.log('[foosball] Dialog sent');
   }
 
   @Post('update-me')
@@ -231,5 +286,29 @@ export class WebhookController {
           text: SlackHelper.buildUpdateProfileString(player),
         });
     }
+  }
+  @Post('options-load-endpoint')
+  async optionsLoadCallback(@Body() input: any, @Res() response: Response) {
+    const payload = JSON.parse(input.payload);
+    console.log('[options-load-endpoint] Received', payload);
+
+    const { callback_id, name, value } = payload;
+    // name: name of dialog field.
+    // value: value entered by user.
+
+    const options: IOption[] = [];
+
+    switch (callback_id) {
+      case Callback.FOOSBALL_MATCH:
+        const playerOptions = await SlackHelper.getExternalDataOptions(this.playerService, 'players');
+        const filteredPlayerOptions = playerOptions.filter(
+          (option: IOption) => option.label.toLowerCase().indexOf(value.toLowerCase()) >= 0
+        );
+        options.push(...filteredPlayerOptions);
+        break;
+    }
+    return SlackHelper.send(response, {
+      options,
+    });
   }
 }
