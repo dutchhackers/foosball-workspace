@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 import { IPlayer } from '@foosball/dto';
 import { Player } from '../models/player';
 import { CoreService } from './abstract-service';

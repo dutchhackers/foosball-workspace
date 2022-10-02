@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'foosball-core',
+  displayName: 'api-core-core',
 
   globals: {
     'ts-jest': {
@@ -12,6 +12,6 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/foosball/core',
+  coverageDirectory: '../../../coverage/libs/api-core/core',
   preset: '../../../jest.preset.js',
 };

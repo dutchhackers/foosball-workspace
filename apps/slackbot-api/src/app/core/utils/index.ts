@@ -1,1 +1,1 @@
-export { SlackHelper } from './slack-helper.utils';
+export { SlackHelper, addViewedBySnippetToBlock, parseSlackUser } from './slack-helper.utils';

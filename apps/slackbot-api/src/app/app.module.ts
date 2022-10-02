@@ -1,6 +1,6 @@
 import { ApiCommonModule, DataMartService, MatchService, PlayerService, StatsService } from '@foosball/api/common';
-import { CoreModule } from '@foosball/core';
-import { DataModule } from '@foosball/data';
+import { CoreModule } from '@foosball/api/core';
+import { DataModule } from '@foosball/api/data';
 import { Module } from '@nestjs/common';
 
 import { WebhookController } from './controllers/webhook.controller';

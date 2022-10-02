@@ -6,7 +6,7 @@ import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
 // import { Publisher } from '../utils/publisher';
 
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 import { IFinalScore, IPlayer } from '@foosball/dto';
 import { StatsService } from '../services/stats.service';
 import { CoreService } from './abstract-service';

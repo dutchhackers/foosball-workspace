@@ -9,7 +9,7 @@ import { checkFlawlessVictory } from '../utils';
 // import { ICubeItem } from '../models/cube-item';
 import { MatchServiceHelper } from './match-service-helper';
 // import { IMatchCubeItem } from '../models/match-cube-item';
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 import { ICubeItem, IMatchCubeItem } from '@foosball/dto';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';

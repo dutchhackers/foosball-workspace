@@ -1,4 +1,4 @@
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

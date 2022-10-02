@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { CoreModule } from '@foosball/core';
-import { DataModule } from '@foosball/data';
+import { CoreModule } from '@coders/api-core/core';
+import { DataModule } from '@foosball/api/data';
 import { MatchesController } from './controllers/matches.controller';
 import { PlayersController } from './controllers/players.controller';
 import { MatchService } from './services/match.service';

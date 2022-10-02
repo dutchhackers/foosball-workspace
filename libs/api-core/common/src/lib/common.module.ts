@@ -1,4 +1,4 @@
-import { DataModule } from '@foosball/data';
+import { DataModule } from '@foosball/api/data';
 import { Module } from '@nestjs/common';
 import { DataMartService, MatchService, PlayerService, StatsService } from './services';
 

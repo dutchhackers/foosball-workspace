@@ -7,7 +7,7 @@ import { CoreService } from './abstract-service';
 import { IMatchResult, IMetrics } from '../models';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils';
 import { Collection } from '../utils/firestore-db';
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 

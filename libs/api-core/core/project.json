@@ -1,20 +1,21 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/foosball/core/src",
+  "name": "api-core-core",
+  "sourceRoot": "libs/api-core/core/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/foosball/core/**/*.ts"]
+        "lintFilePatterns": ["libs/api-core/core/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/foosball/core"],
+      "outputs": ["coverage/libs/api-core/core"],
       "options": {
-        "jestConfig": "libs/foosball/core/jest.config.ts",
+        "jestConfig": "libs/api-core/core/jest.config.ts",
         "passWithNoTests": true
       }
     }

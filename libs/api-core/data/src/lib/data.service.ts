@@ -3,7 +3,6 @@ import * as firebase from 'firebase-admin';
 
 @Injectable()
 export class DataService extends firebase.firestore.Firestore implements OnModuleInit, OnModuleDestroy {
-
   constructor() {
     super();
   }
@@ -20,5 +19,4 @@ export class DataService extends firebase.firestore.Firestore implements OnModul
     // More specific init needed?
     Logger.log('Firestore client connected'); // Example of logging
   }
-
 }

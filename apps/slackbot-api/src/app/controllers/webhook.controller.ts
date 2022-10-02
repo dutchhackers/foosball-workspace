@@ -4,9 +4,9 @@ import { WebClient } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN } from '../core/config';
 
 import { formatKroepnLeaderboardRow, PlayerService } from '@foosball/api/common';
-import { DataService } from '@foosball/data';
+import { DataService } from '@foosball/api/data';
 import { DateTime } from 'luxon';
-import { SlackHelper } from '../core/utils';
+import { SlackHelper, addViewedBySnippetToBlock, parseSlackUser } from '../core/utils';
 import { getPlayerCard } from '../views/slack';
 
 @Controller('')
