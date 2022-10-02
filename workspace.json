@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "api-core-common": "libs/api-core/common",
     "foosball-api": "apps/foosball-api",
     "foosball-core": "libs/foosball/core",
     "foosball-data": "libs/foosball/data",
