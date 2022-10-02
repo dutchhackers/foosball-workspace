@@ -7,5 +7,4 @@ export interface IDocument {
 export abstract class FirestoreDocument implements IDocument {
   @serializable
   _docId!: string;
-  constructor() {}
 }
