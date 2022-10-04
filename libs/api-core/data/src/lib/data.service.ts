@@ -8,6 +8,6 @@ export class DataService extends firebase.firestore.Firestore implements OnModul
   }
 
   public async onModuleInit() {
-    Logger.debug('Firestore client connected');
+    Logger.debug('[DataService] Firestore client connected');
   }
 }
