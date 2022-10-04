@@ -8,10 +8,11 @@ import { MatchesController } from './controllers/matches.controller';
 import { PlayersController } from './controllers/players.controller';
 import { AuthController } from './controllers/auth.controller';
 import { DataController } from './controllers/data.controller';
+import { MatchResultsController } from './controllers/match-results.controller';
 
 @Module({
   imports: [DataModule, CoreModule, AuthModule],
-  controllers: [AuthController, PlayersController, MatchesController, DataController],
+  controllers: [AuthController, PlayersController, MatchesController, DataController, MatchResultsController],
   providers: [PlayerService, MatchService, StatsService, DataMartService],
 })
 export class AppModule {}
