@@ -1,5 +1,5 @@
+import { MatchService } from '@foosball/api/common';
 import { Controller, Get } from '@nestjs/common';
-import { MatchService } from '../services/match.service';
 
 @Controller('matches')
 export class MatchesController {
@@ -7,6 +7,6 @@ export class MatchesController {
 
   @Get()
   getData() {
-    return this.matchService.test();
+    return this.matchService.getMatches();
   }
 }
