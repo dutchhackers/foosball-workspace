@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "api-core-auth": "libs/api-core/auth",
     "api-core-common": "libs/api-core/common",
     "api-core-core": "libs/api-core/core",
     "api-core-data": "libs/api-core/data",

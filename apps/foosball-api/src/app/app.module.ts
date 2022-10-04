@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
 
+import { AuthModule } from '@foosball/api/auth';
+import { DataMartService, MatchService, PlayerService, StatsService } from '@foosball/api/common';
 import { CoreModule } from '@foosball/api/core';
 import { DataModule } from '@foosball/api/data';
 import { MatchesController } from './controllers/matches.controller';
 import { PlayersController } from './controllers/players.controller';
-import { MatchService, PlayerService, StatsService } from '@foosball/api/common';
+import { AuthController } from './controllers/auth.controller';
+import { DataController } from './controllers/data.controller';
+import { MatchResultsController } from './controllers/match-results.controller';
 
 @Module({
-  imports: [DataModule, CoreModule],
-  controllers: [PlayersController, MatchesController],
-  providers: [PlayerService, MatchService, StatsService],
+  imports: [DataModule, CoreModule, AuthModule],
+  controllers: [AuthController, PlayersController, MatchesController, DataController, MatchResultsController],
+  providers: [PlayerService, MatchService, StatsService, DataMartService],
 })
 export class AppModule {}

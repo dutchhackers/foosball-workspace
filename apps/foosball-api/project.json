@@ -10,7 +10,7 @@
         "outputPath": "dist/apps/foosball-api",
         "main": "apps/foosball-api/src/main.ts",
         "tsConfig": "apps/foosball-api/tsconfig.app.json",
-        "assets": ["apps/foosball-api/src/assets"],
+        "assets": [],
         "target": "node",
         "compiler": "tsc"
       },
