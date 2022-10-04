@@ -1,5 +1,5 @@
+import { PlayerService } from '@foosball/api/common';
 import { Controller, Get } from '@nestjs/common';
-import { PlayerService } from '../services/player.service';
 
 @Controller('players')
 export class PlayersController {
@@ -7,6 +7,6 @@ export class PlayersController {
 
   @Get()
   getData() {
-    return this.playerService.test();
+    return this.playerService.getPlayers();
   }
 }
