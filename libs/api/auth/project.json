@@ -1,21 +1,21 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "api-core-core",
-  "sourceRoot": "libs/api-core/core/src",
+  "name": "api-auth",
+  "sourceRoot": "libs/api/auth/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api-core/core/**/*.ts"]
+        "lintFilePatterns": ["libs/api/auth/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api-core/core"],
+      "outputs": ["coverage/libs/api/auth"],
       "options": {
-        "jestConfig": "libs/api-core/core/jest.config.ts",
+        "jestConfig": "libs/api/auth/jest.config.ts",
         "passWithNoTests": true
       }
     }

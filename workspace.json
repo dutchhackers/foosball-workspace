@@ -1,10 +1,10 @@
 {
   "version": 2,
   "projects": {
-    "api-core-auth": "libs/api-core/auth",
-    "api-core-common": "libs/api-core/common",
-    "api-core-core": "libs/api-core/core",
-    "api-core-data": "libs/api-core/data",
+    "api-auth": "libs/api/auth",
+    "api-common": "libs/api/common",
+    "api-core": "libs/api/core",
+    "api-data": "libs/api/data",
     "foosball-api": "apps/foosball-api",
     "shared-dto": "libs/shared/dto",
     "slackbot-api": "apps/slackbot-api"

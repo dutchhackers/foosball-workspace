@@ -1,5 +1,6 @@
 import { PlayerService } from '@foosball/api/common';
-import { Controller, Get } from '@nestjs/common';
+import { IPlayer } from '@foosball/dto';
+import { BadRequestException, Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 @Controller('players')
 export class PlayersController {
@@ -10,52 +11,24 @@ export class PlayersController {
     return this.playerService.getPlayers();
   }
 
-  // playerRouter.get('/:id?', async (req, res) => {
-  //   const playerService = new PlayerService(Firestore.db);
+  @Get('/:id')
+  async getPlayer(@Param('id') playerId: string) {
+    if (!playerId) {
+      throw new BadRequestException();
+    }
+    return this.playerService.getPlayer(playerId);
+  }
 
-  //   try {
-  //     let response;
-  //     const playerId = req.params.id;
-  //     if (playerId) {
-  //       response = await playerService.getPlayer(playerId);
-  //     } else {
-  //       response = await playerService.getPlayers();
-  //     }
-  //     res.status(200).json(response);
-  //   } catch {
-  //     res.status(400).json('Bad request');
-  //   }
-  // });
+  @Post()
+  createPlayer(@Body() createPlayerInput: Partial<IPlayer>) {
+    return this.playerService.addPlayer(createPlayerInput);
+  }
 
-  // playerRouter.post('/', async (req, res) => {
-  //   const playerService = new PlayerService(Firestore.db);
-
-  //   try {
-  //     let response;
-
-  //     const createPlayerInput: Partial<IPlayer> = req.body;
-  //     response = await playerService.addPlayer(createPlayerInput);
-
-  //     res.status(200).json(response);
-  //   } catch {
-  //     res.status(400).json('Bad request');
-  //   }
-  // });
-
-  // playerRouter.put('/:id', async (req, res) => {
-  //   const playerService = new PlayerService(Firestore.db);
-
-  //   try {
-  //     let response;
-
-  //     const updatePlayerInput: Partial<IPlayer> = req.body;
-  //     const id = req.params.id;
-  //     if (id) {
-  //       response = await playerService.updatePlayer(id, updatePlayerInput);
-  //       res.status(200).json(response);
-  //       return;
-  //     }
-  //   } catch {}
-  //   res.status(400).json('Bad request');
-  // });
+  @Put()
+  updatePlayer(@Param('id') playerId: string, @Body() updatePlayerInput: Partial<IPlayer>) {
+    if (!playerId) {
+      throw new BadRequestException();
+    }
+    return this.playerService.updatePlayer(playerId, updatePlayerInput);
+  }
 }

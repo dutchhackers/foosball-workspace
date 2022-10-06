@@ -1,7 +1,7 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "api-core-data",
-  "sourceRoot": "libs/api-core/data/src",
+  "name": "api-data",
+  "sourceRoot": "libs/api/data/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -9,23 +9,23 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/foosball-data",
-        "main": "libs/api-core/data/src/index.ts",
-        "tsConfig": "libs/api-core/data/tsconfig.lib.json",
-        "assets": ["libs/api-core/data/*.md"]
+        "main": "libs/api/data/src/index.ts",
+        "tsConfig": "libs/api/data/tsconfig.lib.json",
+        "assets": ["libs/api/data/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api-core/data/**/*.ts"]
+        "lintFilePatterns": ["libs/api/data/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api-core/data"],
+      "outputs": ["coverage/libs/api/data"],
       "options": {
-        "jestConfig": "libs/api-core/data/jest.config.ts",
+        "jestConfig": "libs/api/data/jest.config.ts",
         "passWithNoTests": true
       }
     }
