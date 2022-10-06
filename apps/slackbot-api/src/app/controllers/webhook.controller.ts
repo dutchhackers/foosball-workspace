@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Res, UseGuards } from '@nestjs/common';
 
 import { WebClient, LogLevel } from '@slack/web-api';
 import { SLACK_OAUTH_ACCESS_TOKEN, SLACK_DEDICATED_CHANNEL } from '../core/config';
@@ -10,6 +10,9 @@ import { SlackHelper, addViewedBySnippetToBlock } from '../core/utils';
 import { getPlayerCard } from '../views/slack';
 import { IFinalScore } from '@foosball/dto';
 import { Response } from 'express';
+import { SlackUser } from '../core/decorators';
+import { SlackAuthGuard } from '../core/guards';
+import { ISlackUser } from '../core/interfaces';
 
 @Controller('')
 export class WebhookController {
@@ -26,7 +29,8 @@ export class WebhookController {
   }
 
   @Post('exec-cmd')
-  async runCommand(@Body() slackRequest: any, @Res() response: Response) {
+  @UseGuards(SlackAuthGuard)
+  async runCommand(@Body() slackRequest: any, @Res() response: Response, @SlackUser() user: ISlackUser) {
     const cmd = slackRequest.text;
     console.log('Run cmd: ' + cmd);
 
@@ -49,11 +53,7 @@ export class WebhookController {
       case 'update-me':
       case 'um':
         console.log('Run cmd: update-me');
-        return this.runUpdateMeCommand(slackRequest);
-
-      default:
-        console.log('Run cmd: leaderboard');
-        return this.getLeaderboard(slackRequest);
+        return this.runUpdateMeCommand(user, slackRequest);
     }
   }
 
@@ -120,15 +120,15 @@ export class WebhookController {
   }
 
   @Post('update-me')
-  async runUpdateMeCommand(@Body() input: any) {
+  @UseGuards(SlackAuthGuard)
+  async runUpdateMeCommand(@SlackUser() user: ISlackUser, @Body() input: any) {
     const payload = input;
-    console.log('[update-me] Received', payload);
+    Logger.debug('[update-me] Received', payload);
 
     // await SlackHelper.acknowledge();
     // console.log('[update-me] Event Acknowledged');
 
-    const { user_id } = payload;
-    const player = await this.playerService.getPlayerBySlackId(user_id);
+    const player = await this.playerService.getPlayerBySlackId(user.userId);
 
     await this.client.dialog.open({
       trigger_id: payload.trigger_id,
