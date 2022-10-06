@@ -1,21 +1,21 @@
 {
-  "name": "api-core-common",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/api-core/common/src",
+  "name": "api-common",
+  "sourceRoot": "libs/api/common/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api-core/common/**/*.ts"]
+        "lintFilePatterns": ["libs/api/common/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/api-core/common"],
+      "outputs": ["coverage/libs/api/common"],
       "options": {
-        "jestConfig": "libs/api-core/common/jest.config.ts",
+        "jestConfig": "libs/api/common/jest.config.ts",
         "passWithNoTests": true
       }
     }

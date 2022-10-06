@@ -15,10 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@foosball/api/common": ["libs/api-core/common/src/index.ts"],
-      "@foosball/api/core": ["libs/api-core/core/src/index.ts"],
-      "@foosball/api/data": ["libs/api-core/data/src/index.ts"],
-      "@foosball/api/auth": ["libs/api-core/auth/src/index.ts"],
       "@foosball/dto": ["libs/shared/dto/src/index.ts"]
     }
   },

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'api-core-auth',
+  displayName: 'api-common',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/api-core/auth',
+  coverageDirectory: '../../../coverage/libs/api/common',
 };
