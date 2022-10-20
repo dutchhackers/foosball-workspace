@@ -5,6 +5,7 @@
     "api-common": "libs/api/common",
     "api-core": "libs/api/core",
     "api-data": "libs/api/data",
+    "firebase-nest": "libs/firebase-nest",
     "foosball-api": "apps/foosball-api",
     "shared-dto": "libs/shared/dto",
     "slackbot-api": "apps/slackbot-api"

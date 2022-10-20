@@ -19,7 +19,8 @@
       "@foosball/api/common": ["libs/api/common/src/index.ts"],
       "@foosball/api/core": ["libs/api/core/src/index.ts"],
       "@foosball/api/data": ["libs/api/data/src/index.ts"],
-      "@foosball/dto": ["libs/shared/dto/src/index.ts"]
+      "@foosball/dto": ["libs/shared/dto/src/index.ts"],
+      "@foosball/firebase-nest": ["libs/firebase-nest/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
