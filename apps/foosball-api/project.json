@@ -48,6 +48,23 @@
         "jestConfig": "apps/foosball-api/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "dockerize": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -f ./apps/foosball-api/server/Dockerfile . -t foosball-api"
+      },
+      "parallel": false
+    },
+    "docker-push": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "if [ {args.projectId} = \"undefined\" ]; then echo \"provide project arg\"; else docker tag foosball-api gcr.io/{args.projectId}/foosball-api; fi ",
+          "if [ {args.projectId} = \"undefined\" ]; then echo \"provide project arg\"; else docker push gcr.io/{args.projectId}/foosball-api; fi "
+        ]
+      },
+      "parallel": false
     }
   },
   "tags": []
