@@ -6,7 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
 COPY package.json ./
 
-RUN npm install -only=production
+RUN npm install
 
 COPY ./dist/apps/slackbot-api ./
 
