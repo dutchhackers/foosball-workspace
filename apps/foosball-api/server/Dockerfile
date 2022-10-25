@@ -8,6 +8,6 @@ COPY package.json ./
 
 RUN npm install
 
-COPY ./dist/apps/slackbot-api ./
+COPY ./dist/apps/foosball-api ./
 
 CMD node ./main.js
