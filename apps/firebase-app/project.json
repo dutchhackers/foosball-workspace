@@ -2,6 +2,7 @@
   "name": "firebase-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "tags": ["firebase:app", "firebase:name:firebase-app"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -63,24 +64,16 @@
     "serve": {
       "executor": "@simondotm/nx-firebase:serve",
       "options": {
-        "commands": [
-          "nx run firebase-app:watch",
-          "nx run firebase-app:emulate"
-        ]
+        "commands": ["nx run firebase-app:watch", "nx run firebase-app:emulate"]
       }
     },
     "deploy": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "command": "nx run firebase-app:firebase deploy"
       }
     }
   },
-  "tags": [
-    "firebase:app",
-    "firebase:name:firebase-app"
-  ]
+  "implicitDependencies": ["api"]
 }
