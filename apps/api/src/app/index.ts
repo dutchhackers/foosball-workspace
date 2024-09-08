@@ -4,6 +4,9 @@ import cors from 'cors';
 import express, { Express } from "express";
 
 import { PlayersController } from './controllers/players.controller';
+import { MatchResultsController } from './controllers/match-results.controller';
+import { MatchesController } from './controllers/matches.controller';
+
 
 const app: Express = express();
 
@@ -14,5 +17,7 @@ app.disable('x-powered-by');
 app.use(cors({ origin: true }));
 
 app.use('/players', PlayersController);
+app.use('/matches', MatchesController);
+app.use('/match-results', MatchResultsController);
 
 export { app };
