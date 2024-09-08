@@ -15,17 +15,17 @@ router.get('/', async (req: Request, res: Response) => {
   res.json(response);
 });
 
-// @Controller('players')
+router.get('/:id', async (req: Request, res: Response) => {
+  logger.debug('Get Players', req.params);
 
-// constructor(private playerService: PlayerService) {}
+  //   if (!playerId) {
+  //     throw new BadRequestException();
+  //   }
 
-// @Get('/:id')
-// async getPlayer(@Param('id') playerId: string) {
-//   if (!playerId) {
-//     throw new BadRequestException();
-//   }
-//   return this.playerService.getPlayer(playerId);
-// }
+  const playerService = new PlayerService();
+  const response = await playerService.getPlayer(req.params.id);
+  res.json(response);
+});
 
 // @Post()
 // createPlayer(@Body() createPlayerInput: Partial<IPlayer>) {
