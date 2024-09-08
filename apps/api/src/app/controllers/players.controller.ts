@@ -1,5 +1,3 @@
-// import { PlayerService } from '@foosball/api/common';
-// import { IPlayer } from '@foosball/dto';
 import express, { Request, Response } from 'express';
 import * as logger from 'firebase-functions/logger';
 
@@ -16,28 +14,23 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.get('/:id', async (req: Request, res: Response) => {
-  logger.debug('Get Players', req.params);
-
-  //   if (!playerId) {
-  //     throw new BadRequestException();
-  //   }
+  logger.debug('Get Player', req.params);
 
   const playerService = new PlayerService();
   const response = await playerService.getPlayer(req.params.id);
   res.json(response);
 });
 
-// @Post()
-// createPlayer(@Body() createPlayerInput: Partial<IPlayer>) {
-//   return this.playerService.addPlayer(createPlayerInput);
-// }
+router.post('/', async (req: Request, res: Response) => {
+  const playerService = new PlayerService();
+  const response = playerService.addPlayer(req.body);
+  res.json(response);
+});
 
-// @Put()
-// updatePlayer(@Param('id') playerId: string, @Body() updatePlayerInput: Partial<IPlayer>) {
-//   if (!playerId) {
-//     throw new BadRequestException();
-//   }
-//   return this.playerService.updatePlayer(playerId, updatePlayerInput);
-// }
+router.put('/:id', async (req: Request, res: Response) => {
+  const playerService = new PlayerService();
+  playerService.updatePlayer(req.params.id, req.body);
+  res.json();
+});
 
 export { router as PlayersController };
