@@ -1,25 +1,23 @@
 // import { PlayerService } from '@foosball/api/common';
 // import { IPlayer } from '@foosball/dto';
-// import { BadRequestException, Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import * as express from 'express';
-// import { CharacterService } from "../../../libs/core/services/character-service";
-// import { UserServiceV2 } from "../../../libs/core/services/user-service-v2";
+import express, { Request, Response } from 'express';
+import * as logger from 'firebase-functions/logger';
+
+import { PlayerService } from '@foosball/common';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-// @Get()
-// getData() {
-//   return this.playerService.getPlayers();
-// }
+router.get('/', async (req: Request, res: Response) => {
+  logger.debug('Get Players', req.params);
 
-
+  const playerService = new PlayerService();
+  const response = await playerService.getPlayers();
+  res.json(response);
 });
 
 // @Controller('players')
 
 // constructor(private playerService: PlayerService) {}
-
 
 // @Get('/:id')
 // async getPlayer(@Param('id') playerId: string) {
