@@ -39,7 +39,7 @@
     "express": "^4.19.2",
     "firebase": "^10.10.0",
     "firebase-admin": "^11.11.1",
-    "firebase-functions": "^5.1.1",
+    "firebase-functions": "^5.0.1",
     "luxon": "^3.5.0",
     "serializr": "^3.0.2",
     "tslib": "^2.3.0"

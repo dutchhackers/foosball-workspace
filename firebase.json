@@ -25,6 +25,12 @@
       "source": "dist/apps/api",
       "runtime": "nodejs20",
       "ignore": ["*.local"]
+    },
+    {
+      "codebase": "slack-webhook",
+      "source": "dist/apps/slack-webhook",
+      "runtime": "nodejs20",
+      "ignore": ["*.local"]
     }
   ],
   "emulators": {
