@@ -15,13 +15,13 @@ const DEFAULT_REGION = 'europe-west1';
 
 
 // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import { connectFirestore } from '@foosball/common';
-// connectFirestore();
+import { connectFirestore } from '@foosball/common';
+connectFirestore();
 
-import * as admin from "firebase-admin";
+// import admin from "firebase-admin";
 // import * as logger from "firebase-functions/logger";
 
-admin.initializeApp();
+// admin.initializeApp();
 
 // REST API
 import { app } from './app';
