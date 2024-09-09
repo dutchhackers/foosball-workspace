@@ -75,68 +75,70 @@ export class WebhookController {
     }
   }
 
-  @Post('foosball')
-  async runFoosballCommand(@Body() input: any, @Res() response: Response) {
-    const payload = input;
-    console.log('[foosball] Received', payload);
+  */
 
-    await SlackHelper.acknowledge(response);
-    console.log('[foosball] Event Acknowledged');
+router.post('/foosball', async (req: Request, res: Response) => {
+  const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
 
-    await this.client.dialog.open({
-      trigger_id: payload.trigger_id,
-      dialog: {
-        callback_id: Callback.FOOSBALL_MATCH,
-        title: 'Foosball Match',
-        submit_label: 'Submit',
-        // "notify_on_cancel": true,
-        elements: [
-          {
-            label: 'Team 1 - Player 1',
-            name: 'team1player1',
-            type: 'select',
-            data_source: 'external',
-          },
-          {
-            label: 'Team 1 - Player 2',
-            placeholder: '',
-            name: 'team1player2',
-            type: 'select',
-            data_source: 'external',
-            optional: true,
-          },
-          {
-            label: 'Score Team 1',
-            name: 'score1',
-            type: 'text',
-            subtype: 'number',
-          },
-          {
-            label: 'Team 2 - Player 1',
-            name: 'team2player1',
-            type: 'select',
-            data_source: 'external',
-          },
-          {
-            label: 'Team 2 - Player 2',
-            placeholder: '',
-            name: 'team2player2',
-            type: 'select',
-            data_source: 'external',
-            optional: true,
-          },
-          {
-            label: 'Score Team 2',
-            name: 'score2',
-            type: 'text',
-            subtype: 'number',
-          },
-        ],
-      },
-    });
-    console.log('[foosball] Dialog sent');
-  }
-*/
+  const payload = req.body;
+  console.log('[foosball] Received', payload);
+
+  await SlackHelper.acknowledge(res);
+  console.log('[foosball] Event Acknowledged');
+
+  await slackClient.dialog.open({
+    trigger_id: payload.trigger_id,
+    dialog: {
+      callback_id: Callback.FOOSBALL_MATCH,
+      title: 'Foosball Match',
+      submit_label: 'Submit',
+      // "notify_on_cancel": true,
+      elements: [
+        {
+          label: 'Team 1 - Player 1',
+          name: 'team1player1',
+          type: 'select',
+          data_source: 'external',
+        },
+        {
+          label: 'Team 1 - Player 2',
+          placeholder: '',
+          name: 'team1player2',
+          type: 'select',
+          data_source: 'external',
+          optional: true,
+        },
+        {
+          label: 'Score Team 1',
+          name: 'score1',
+          type: 'text',
+          subtype: 'number',
+        },
+        {
+          label: 'Team 2 - Player 1',
+          name: 'team2player1',
+          type: 'select',
+          data_source: 'external',
+        },
+        {
+          label: 'Team 2 - Player 2',
+          placeholder: '',
+          name: 'team2player2',
+          type: 'select',
+          data_source: 'external',
+          optional: true,
+        },
+        {
+          label: 'Score Team 2',
+          name: 'score2',
+          type: 'text',
+          subtype: 'number',
+        },
+      ],
+    },
+  });
+  console.log('[foosball] Dialog sent');
+});
 
 /*
   @Post('update-me')
@@ -215,7 +217,6 @@ router.post('/player-card', async (req: Request, res: Response) => {
   const client = new WebClient(SLACK_OAUTH_ACCESS_TOKEN, {
     // logLevel: LogLevel.DEBUG,
   });
-
 
   const payload = req.body;
 
