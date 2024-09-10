@@ -1,0 +1,10 @@
+# default owners for everything in
+# the repo. 
+* @mschilling @cassshh
+
+# Configs
+.github/ @mschilling @cassshh
+.vscode/ @mschilling @cassshh
+
+# Libs
+libs/ @mschilling @cassshh
