@@ -5,7 +5,7 @@
   "scripts": {},
   "private": true,
   "devDependencies": {
-    "@nx/esbuild": "19.6.5",
+    "@nx/esbuild": "19.7.0",
     "@nx/eslint": "19.6.5",
     "@nx/eslint-plugin": "19.6.5",
     "@nx/jest": "19.6.5",
