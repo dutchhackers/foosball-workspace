@@ -40,7 +40,7 @@ jobs:
           CI: true
 
       - name: Build affected apps
-        uses: mansagroup/nrwl-nx-action@v2.0.3
+        uses: mansagroup/nrwl-nx-action@v3
         with:
           targets: lint,test,build
           affected: 'true'
