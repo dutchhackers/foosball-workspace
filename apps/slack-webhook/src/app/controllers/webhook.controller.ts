@@ -85,14 +85,13 @@ router.post('/foosball', async (req: Request, res: Response) => {
 router.post('/update-me', async (req: Request, res: Response) => {
   const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
   const playerService = new PlayerService();
-  //@SlackUser() user: ISlackUser, @Body() input: any) {
-  const payload = req.params;
+
+  const payload = req.body;
   logger.debug('[update-me] Received', payload);
 
-  const userId = payload.user_id; //TODO: verify
+  const userId = payload.user_id;
 
-  // await SlackHelper.acknowledge();
-  // console.log('[update-me] Event Acknowledged');
+  await SlackHelper.acknowledge(res);
 
   const player = await playerService.getPlayerBySlackId(userId);
 
@@ -200,10 +199,11 @@ router.post('/interactive', async (req: Request, res: Response) => {
   const playerService = new PlayerService();
   const matchService = new MatchService();
 
-  const payload = JSON.parse(req.body);
-  console.log(payload);
+  const data = JSON.parse(req.body.payload);
+  logger.info('[/interactive data]', data);
 
-  const { user, submission, callback_id } = payload;
+  const { user, submission, callback_id } = data;
+  const channelId = data.channel.id;
 
   switch (callback_id) {
     case Callback.FOOSBALL_MATCH: {
@@ -265,12 +265,11 @@ router.post('/interactive', async (req: Request, res: Response) => {
         quote,
       });
 
-      // await SlackHelper.acknowledge();
       await SlackHelper.acknowledge(res);
 
       slackClient.chat.postEphemeral({
         user: user.id,
-        channel: payload.channel.id,
+        channel: channelId,
         text: SlackHelper.buildUpdateProfileString(player),
       });
     }
