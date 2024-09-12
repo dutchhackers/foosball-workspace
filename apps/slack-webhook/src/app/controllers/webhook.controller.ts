@@ -16,11 +16,8 @@ import {
   db,
 } from '@foosball/common';
 import { getPlayerCard } from '../../views/slack';
-import { LogLevel, WebClient } from '@slack/web-api';
-import {
-  SLACK_DEDICATED_CHANNEL,
-  SLACK_OAUTH_ACCESS_TOKEN,
-} from '../../core/config';
+import { WebClient } from '@slack/web-api';
+import { SLACK_DEDICATED_CHANNEL, SLACK_OAUTH_ACCESS_TOKEN } from '../../core/config';
 
 router.post('/foosball', async (req: Request, res: Response) => {
   const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
@@ -88,14 +85,13 @@ router.post('/foosball', async (req: Request, res: Response) => {
 router.post('/update-me', async (req: Request, res: Response) => {
   const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
   const playerService = new PlayerService();
-  //@SlackUser() user: ISlackUser, @Body() input: any) {
-  const payload = req.params;
+
+  const payload = req.body;
   logger.debug('[update-me] Received', payload);
 
-  const userId = payload.user_id; //TODO: verify
+  const userId = payload.user_id;
 
-  // await SlackHelper.acknowledge();
-  // console.log('[update-me] Event Acknowledged');
+  await SlackHelper.acknowledge(res);
 
   const player = await playerService.getPlayerBySlackId(userId);
 
@@ -138,19 +134,17 @@ router.post('/update-me', async (req: Request, res: Response) => {
 });
 
 router.post('/kroepn-leaderboard', async (req: Request, res: Response) => {
-  const payload = req.params;
   const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
-  console.log('[kroepn-leaderboard] Received', payload);
+  const payload = req.body;
+  logger.debug('[kroepn-leaderboard] Received', payload);
 
-  await SlackHelper.acknowledge();
+  await SlackHelper.acknowledge(res);
 
   const timestamp = DateTime.local().plus({ day: -30 }); // Filter on players who did play in the last N days
   const leaderboard = await SlackHelper.getDefaultLeaderboard(db, {
     minDateLastMatch: timestamp.toISO(),
   });
-  const rankingText = leaderboard.ranking
-    .map(formatKroepnLeaderboardRow)
-    .join('\n');
+  const rankingText = leaderboard.ranking.map(formatKroepnLeaderboardRow).join('\n');
   const rankingAsText = "*Kroep'n Leaderboard:* \n\n" + rankingText;
 
   const responseMessage: any = {
@@ -177,9 +171,7 @@ router.post('/player-card', async (req: Request, res: Response) => {
   try {
     const slackUser = parseSlackUser(payload.text);
     const playerService = new PlayerService();
-    const player = await playerService.getPlayerBySlackId(
-      slackUser.id || payload.user_id
-    );
+    const player = await playerService.getPlayerBySlackId(slackUser.id || payload.user_id);
 
     if (!player) {
       return {
@@ -207,21 +199,15 @@ router.post('/interactive', async (req: Request, res: Response) => {
   const playerService = new PlayerService();
   const matchService = new MatchService();
 
-  const payload = JSON.parse(req.body);
-  console.log(payload);
+  const data = JSON.parse(req.body.payload);
+  logger.info('[/interactive data]', data);
 
-  const { user, submission, callback_id } = payload;
+  const { user, submission, callback_id } = data;
+  const channelId = data.channel.id;
 
   switch (callback_id) {
     case Callback.FOOSBALL_MATCH: {
-      const {
-        team1player1,
-        team1player2,
-        team2player1,
-        team2player2,
-        score1,
-        score2,
-      } = submission;
+      const { team1player1, team1player2, team2player1, team2player2, score1, score2 } = submission;
       const errors = [];
       if (isNaN(score1)) {
         errors.push({
@@ -259,21 +245,14 @@ router.post('/interactive', async (req: Request, res: Response) => {
       // const matchService = new MatchService(Firestore.db);
       await matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
 
-      const players = await playerService.getPlayersById([
-        ...homeTeam,
-        ...awayTeam,
-      ]);
+      const players = await playerService.getPlayersById([...homeTeam, ...awayTeam]);
 
       const homeTeamString = SlackHelper.concatPlayersString(homeTeam, players);
       const awayTeamString = SlackHelper.concatPlayersString(awayTeam, players);
 
       return slackClient.chat.postMessage({
-        channel: SLACK_DEDICATED_CHANNEL || payload.channel.id,
-        text: SlackHelper.buildMatchResultString(
-          homeTeamString,
-          awayTeamString,
-          finalScore
-        ),
+        channel: SLACK_DEDICATED_CHANNEL || channelId,
+        text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
       });
     }
     case Callback.UPDATE_ME: {
@@ -286,12 +265,11 @@ router.post('/interactive', async (req: Request, res: Response) => {
         quote,
       });
 
-      // await SlackHelper.acknowledge();
       await SlackHelper.acknowledge(res);
 
       slackClient.chat.postEphemeral({
         user: user.id,
-        channel: payload.channel.id,
+        channel: channelId,
         text: SlackHelper.buildUpdateProfileString(player),
       });
     }
@@ -299,7 +277,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
 });
 
 router.post('/options-load-endpoint', async (req: Request, res: Response) => {
-  const payload = JSON.parse(req.body);
+  const payload = JSON.parse(req.body.payload);
   console.log('[options-load-endpoint] Received', payload);
 
   const playerService = new PlayerService();
@@ -312,14 +290,8 @@ router.post('/options-load-endpoint', async (req: Request, res: Response) => {
 
   switch (callback_id) {
     case Callback.FOOSBALL_MATCH: {
-      const playerOptions = await SlackHelper.getExternalDataOptions(
-        playerService,
-        'players'
-      );
-      const filteredPlayerOptions = playerOptions.filter(
-        (option: IOption) =>
-          option.label.toLowerCase().indexOf(value.toLowerCase()) >= 0
-      );
+      const playerOptions = await SlackHelper.getExternalDataOptions(playerService, 'players');
+      const filteredPlayerOptions = playerOptions.filter((option: IOption) => option.label.toLowerCase().indexOf(value.toLowerCase()) >= 0);
       options.push(...filteredPlayerOptions);
       break;
     }
