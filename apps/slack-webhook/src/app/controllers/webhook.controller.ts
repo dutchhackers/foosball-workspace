@@ -277,7 +277,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
 });
 
 router.post('/options-load-endpoint', async (req: Request, res: Response) => {
-  const payload = JSON.parse(req.body);
+  const payload = JSON.parse(req.body.payload);
   console.log('[options-load-endpoint] Received', payload);
 
   const playerService = new PlayerService();
