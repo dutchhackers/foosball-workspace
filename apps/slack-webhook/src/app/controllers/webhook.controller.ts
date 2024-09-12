@@ -251,7 +251,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
       const awayTeamString = SlackHelper.concatPlayersString(awayTeam, players);
 
       return slackClient.chat.postMessage({
-        channel: SLACK_DEDICATED_CHANNEL || payload.channel.id,
+        channel: SLACK_DEDICATED_CHANNEL || channelId,
         text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
       });
     }
