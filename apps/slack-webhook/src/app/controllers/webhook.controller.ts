@@ -14,6 +14,7 @@ import {
   MatchService,
   IFinalScore,
   db,
+  GeminiHelper,
 } from '@foosball/common';
 import { getPlayerCard } from '../../views/slack';
 import { WebClient } from '@slack/web-api';
@@ -250,9 +251,14 @@ router.post('/interactive', async (req: Request, res: Response) => {
       const homeTeamString = SlackHelper.concatPlayersString(homeTeam, players);
       const awayTeamString = SlackHelper.concatPlayersString(awayTeam, players);
 
+      let slackMessage = SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore);
+
+      const geminiHelper = new GeminiHelper();
+      slackMessage = await geminiHelper.generateMatchResultShout(slackMessage);
+
       return slackClient.chat.postMessage({
         channel: SLACK_DEDICATED_CHANNEL || channelId,
-        text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
+        text: slackMessage,
       });
     }
     case Callback.UPDATE_ME: {

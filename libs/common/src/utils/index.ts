@@ -1,3 +1,3 @@
-export * from './various';
 export * from './firestore-db';
-export * from './various'
+export * from './gemini.helper';
+export * from './various';
