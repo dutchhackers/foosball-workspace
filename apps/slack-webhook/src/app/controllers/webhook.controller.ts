@@ -191,14 +191,31 @@ router.post('/player-card', async (req: Request, res: Response) => {
       mrkdwn: true,
     });
 
-    // sleep 2 seconds using await
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     const slackMessage = await geminiHelper.generateProfileCardReview(playerCardData);
 
     await client.chat.postMessage({
       channel: payload.channel_id,
-      text: slackMessage,
+      blocks: [
+        {
+          type: 'header',
+          text: {
+            type: 'plain_text',
+            text: 'Chuck Says:',
+          },
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: slackMessage,
+          },
+          accessory: {
+            type: 'image',
+            image_url: 'https://img.icons8.com/plasticine/12x/chuck-norris.png',
+            alt_text: 'chuck says hi',
+          },
+        },
+      ],
       mrkdwn: true,
     });
   } catch (e) {
