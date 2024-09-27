@@ -268,7 +268,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
 
       return slackClient.chat.postMessage({
         channel: SLACK_DEDICATED_CHANNEL || channelId,
-        text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),,
+        text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
       });
     }
     case Callback.UPDATE_ME: {
