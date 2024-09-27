@@ -180,10 +180,19 @@ router.post('/player-card', async (req: Request, res: Response) => {
       };
     }
 
-    return client.chat.postMessage({
+    await client.chat.postMessage({
       channel: payload.channel_id,
       text: `View stats of ${player.displayName}`,
       blocks: addViewedBySnippetToBlock(getPlayerCard(player), payload.user_id),
+      mrkdwn: true,
+    });
+
+    // sleep 2 seconds using await
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    await client.chat.postMessage({
+      channel: payload.channel_id,
+      text: '<What Chuck Norris thinks about this.. >',
       mrkdwn: true,
     });
   } catch (e) {
