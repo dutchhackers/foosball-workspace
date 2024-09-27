@@ -163,6 +163,8 @@ router.post('/player-card', async (req: Request, res: Response) => {
     // logLevel: LogLevel.DEBUG,
   });
 
+  const geminiHelper = new GeminiHelper();
+
   const payload = req.body;
 
   console.log('[player-card] Received', payload);
@@ -180,19 +182,23 @@ router.post('/player-card', async (req: Request, res: Response) => {
       };
     }
 
+    const playerCardData = getPlayerCard(player);
+
     await client.chat.postMessage({
       channel: payload.channel_id,
       text: `View stats of ${player.displayName}`,
-      blocks: addViewedBySnippetToBlock(getPlayerCard(player), payload.user_id),
+      blocks: addViewedBySnippetToBlock(playerCardData, payload.user_id),
       mrkdwn: true,
     });
 
     // sleep 2 seconds using await
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const slackMessage = await geminiHelper.generateProfileCardReview(playerCardData);
 
     await client.chat.postMessage({
       channel: payload.channel_id,
-      text: '<What Chuck Norris thinks about this.. >',
+      text: slackMessage,
       mrkdwn: true,
     });
   } catch (e) {
