@@ -16,7 +16,7 @@
     "@angular/language-service": "~18.2.0",
     "@nx/angular": "19.6.0",
     "@nx/esbuild": "19.6.5",
-    "@nx/eslint": "19.6.5",
+    "@nx/eslint": "19.8.2",
     "@nx/eslint-plugin": "19.6.5",
     "@nx/jest": "19.6.5",
     "@nx/js": "19.6.5",
