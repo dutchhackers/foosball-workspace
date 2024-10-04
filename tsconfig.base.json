@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@foosball/common": ["libs/common/src/index.ts"]
+      "@foosball/common": ["libs/common/src/index.ts"],
+      "@foosball/gemini": ["libs/gemini/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

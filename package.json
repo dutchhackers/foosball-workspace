@@ -54,6 +54,7 @@
     "typescript": "~5.5.2"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.19.0",
     "@angular-builders/custom-webpack": "^18.0.0",
     "@angular-builders/dev-server": "^7.3.1",
     "@angular/animations": "~18.2.0",

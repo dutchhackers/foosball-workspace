@@ -3,6 +3,8 @@ import * as logger from 'firebase-functions/logger';
 import { onRequest } from 'firebase-functions/v2/https';
 import { setGlobalOptions } from 'firebase-functions/v2/options';
 
+import './config';
+
 const DEFAULT_REGION = 'europe-west1';
 
 // // eslint-disable-next-line @typescript-eslint/no-unused-vars

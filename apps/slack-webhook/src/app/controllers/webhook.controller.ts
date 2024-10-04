@@ -14,6 +14,7 @@ import {
   MatchService,
   IFinalScore,
   db,
+  GeminiHelper,
 } from '@foosball/common';
 import { getPlayerCard } from '../../views/slack';
 import { WebClient } from '@slack/web-api';
@@ -162,6 +163,8 @@ router.post('/player-card', async (req: Request, res: Response) => {
     // logLevel: LogLevel.DEBUG,
   });
 
+  const geminiHelper = new GeminiHelper();
+
   const payload = req.body;
 
   console.log('[player-card] Received', payload);
@@ -179,10 +182,40 @@ router.post('/player-card', async (req: Request, res: Response) => {
       };
     }
 
-    return client.chat.postMessage({
+    const playerCardData = getPlayerCard(player);
+
+    await client.chat.postMessage({
       channel: payload.channel_id,
       text: `View stats of ${player.displayName}`,
-      blocks: addViewedBySnippetToBlock(getPlayerCard(player), payload.user_id),
+      blocks: addViewedBySnippetToBlock(playerCardData, payload.user_id),
+      mrkdwn: true,
+    });
+
+    const slackMessage = await geminiHelper.generateProfileCardReview(playerCardData);
+
+    await client.chat.postMessage({
+      channel: payload.channel_id,
+      blocks: [
+        {
+          type: 'header',
+          text: {
+            type: 'plain_text',
+            text: 'Chuck Says:',
+          },
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: slackMessage,
+          },
+          accessory: {
+            type: 'image',
+            image_url: 'https://img.icons8.com/plasticine/12x/chuck-norris.png',
+            alt_text: 'chuck says hi',
+          },
+        },
+      ],
       mrkdwn: true,
     });
   } catch (e) {
