@@ -3,11 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/slack-webhook/src",
   "projectType": "application",
-  "tags": [
-    "firebase:function",
-    "firebase:name:slack-webhook",
-    "firebase:dep:firebase-app"
-  ],
+  "tags": ["firebase:function", "firebase:name:slack-webhook", "firebase:dep:firebase-app"],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
@@ -35,6 +31,9 @@
           "logLevel": "info"
         }
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
