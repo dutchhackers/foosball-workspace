@@ -7,5 +7,5 @@
     "target": "es2020"
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts", "src/controllers/auth.controller.ts.pending", "src/controllers/data.controller.ts.pending", "src/controllers/match-results.controller.ts.pending", "src/controllers/matches.controller.ts.pending"]
+  "include": ["src/**/*.ts"]
 }
