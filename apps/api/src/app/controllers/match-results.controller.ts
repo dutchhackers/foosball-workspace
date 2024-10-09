@@ -1,3 +1,4 @@
+import createError from 'http-errors';
 import express, { Request, Response } from 'express';
 import * as logger from 'firebase-functions/logger';
 
@@ -20,12 +21,14 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
+  logger.debug('Post Match-Results', req.params);
   const matchService = new MatchService();
   const requestData: any = req.body;
   const matchDataOpts: any = {};
 
   if (!requestData.homeTeamIds || !requestData.awayTeamIds) {
-    throw new Error(); //BadRequestException();
+    res.status(400).send('Home team IDs and away team IDs are required');
+    return;
   }
 
   if (requestData.matchDate) {
@@ -42,7 +45,9 @@ router.post('/', async (req: Request, res: Response) => {
     res.json(response);
   } catch (e) {
     console.log(e);
-    throw new Error(); //BadRequestException();
+
+    //BadRequestException();
+    res.status(400).send(e);
   }
 });
 

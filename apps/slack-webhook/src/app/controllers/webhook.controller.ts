@@ -261,7 +261,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
       }
 
       // Send ACK, to prevent time-out
-      SlackHelper.acknowledge(res);
+      await SlackHelper.acknowledge(res);
 
       const homeTeam = [team1player1];
       if (team1player2) homeTeam.push(team1player2);
@@ -275,7 +275,6 @@ router.post('/interactive', async (req: Request, res: Response) => {
         finalScore,
       });
 
-      // const matchService = new MatchService(Firestore.db);
       await matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
 
       const players = await playerService.getPlayersById([...homeTeam, ...awayTeam]);

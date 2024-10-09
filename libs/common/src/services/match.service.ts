@@ -1,10 +1,10 @@
-
 import { IPlayer } from '../interfaces';
 import { IMatchResult, MatchResult } from '../models';
 import { IFinalScore } from '../types';
 import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
 import { CoreService } from './abstract-service';
+import { StatsService } from './stats.service';
 // import { StatsService } from './stats.service';
 export { MatchServiceHelper } from './match-service-helper';
 
@@ -111,7 +111,7 @@ export class MatchService extends CoreService implements IMatchService {
       awayTeam: awayTeamData,
     });
 
-    const match = await this.getMatch(docRef.id);
+    // const match = await this.getMatch(docRef.id);
 
     // TODO: fix publisher!
     // const publisher = new Publisher();
@@ -145,14 +145,12 @@ export class MatchService extends CoreService implements IMatchService {
   }
 
   private async calculateStats(matchResult: IMatchResult, multiplier = 1) {
-    // const statsService = new StatsService(this.data);
-    console.log("This method is not implemented yet");
-    // await this.statsService.generateStats(matchResult, { multiplier });
+    const statsService = new StatsService();
+    await statsService.generateStats(matchResult, { multiplier });
   }
 
   private async getPlayers(arrPlayers: string[]): Promise<any> {
     if (this._playersRepository.length === 0) {
-      console.log('loading all players');
       const query = this.db.collection(PLAYERS_COLLECTION);
       this._playersRepository = this.wrapAll(await query.get());
     }

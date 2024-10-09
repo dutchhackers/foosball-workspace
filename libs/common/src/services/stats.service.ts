@@ -1,9 +1,9 @@
-import * as admin from 'firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
-import { CoreService } from './abstract-service';
 import { IMatchResult, IMetrics } from '../models';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils';
 import { Collection } from '../utils/firestore-db';
+import { CoreService } from './abstract-service';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 
@@ -103,9 +103,7 @@ export class StatsService extends CoreService implements IStatsService {
     await this.batchUpdateStreaks(docRefs);
   }
 
-  public async batchUpdateStreaks(
-    docReferences: FirebaseFirestore.DocumentReference[]
-  ): Promise<void> {
+  public async batchUpdateStreaks(docReferences: FirebaseFirestore.DocumentReference[]): Promise<void> {
     if (!docReferences) {
       return;
     }
@@ -127,32 +125,14 @@ export class StatsService extends CoreService implements IStatsService {
 
       const isoTimestamp = new Date().toISOString();
 
-      console.log({
-        docId: docRef.id,
-        // metrics: entry.metrics,
-        // player: playerDoc.id,
-        currentWinStreak,
-        highestWinStreak,
-        currentLoseStreak,
-        highestLoseStreak,
-      });
-
       if (currentWinStreak > highestWinStreak) {
         maxStreakChanged = true;
-        batch.set(
-          docRef,
-          { highestWinStreak: currentWinStreak },
-          { merge: true }
-        );
+        batch.set(docRef, { highestWinStreak: currentWinStreak }, { merge: true });
       }
 
       if (currentLoseStreak > highestLoseStreak) {
         maxStreakChanged = true;
-        batch.set(
-          docRef,
-          { highestLoseStreak: currentLoseStreak },
-          { merge: true }
-        );
+        batch.set(docRef, { highestLoseStreak: currentLoseStreak }, { merge: true });
       }
     }
 
@@ -166,56 +146,46 @@ export class StatsService extends CoreService implements IStatsService {
     const now = new Date().toISOString();
 
     // Increase number of played matches
-    metrics.totalMatches = admin.firestore.FieldValue.increment(multiplier * 1);
+    metrics.totalMatches = FieldValue.increment(multiplier * 1);
     metrics.dateLastMatch = now;
 
     if (flags.didWin === true) {
-      metrics.totalWins = admin.firestore.FieldValue.increment(multiplier * 1);
+      metrics.totalWins = FieldValue.increment(multiplier * 1);
       metrics.dateLastWin = now;
 
       if (flags.hasHumiliation) {
         // i.e. made someone 'Kroepn'
-        metrics.totalFlawlessVictories = admin.firestore.FieldValue.increment(
-          multiplier * 1
-        );
+        metrics.totalFlawlessVictories = FieldValue.increment(multiplier * 1);
         metrics.dateLastFlawlessVictory = now;
       }
 
       if (flags.hasSuckerPunch) {
-        metrics.totalSuckerpunches = admin.firestore.FieldValue.increment(
-          multiplier * 1
-        );
+        metrics.totalSuckerpunches = FieldValue.increment(multiplier * 1);
       }
     }
 
     if (flags.didLose === true) {
-      metrics.totalLosses = admin.firestore.FieldValue.increment(
-        multiplier * 1
-      );
+      metrics.totalLosses = FieldValue.increment(multiplier * 1);
       metrics.dateLastLose = now;
 
       if (flags.hasHumiliation) {
         // i.e. made someone 'Kroepn'
-        metrics.totalHumiliations = admin.firestore.FieldValue.increment(
-          multiplier * 1
-        );
+        metrics.totalHumiliations = FieldValue.increment(multiplier * 1);
         metrics.dateLastHumiliation = now;
       }
 
       if (flags.hasSuckerPunch) {
-        metrics.totalKnockouts = admin.firestore.FieldValue.increment(
-          multiplier * 1
-        );
+        metrics.totalKnockouts = FieldValue.increment(multiplier * 1);
       }
     }
 
     /** Streaks */
     if (flags.didWin === true) {
-      metrics.winStreak = admin.firestore.FieldValue.increment(multiplier * 1);
+      metrics.winStreak = FieldValue.increment(multiplier * 1);
       metrics.loseStreak = 0;
     } else if (flags.didLose === true) {
       metrics.winStreak = 0;
-      metrics.loseStreak = admin.firestore.FieldValue.increment(multiplier * 1);
+      metrics.loseStreak = FieldValue.increment(multiplier * 1);
     }
 
     return metrics;
