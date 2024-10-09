@@ -275,7 +275,6 @@ router.post('/interactive', async (req: Request, res: Response) => {
         finalScore,
       });
 
-      // const matchService = new MatchService(Firestore.db);
       await matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
 
       const players = await playerService.getPlayersById([...homeTeam, ...awayTeam]);
