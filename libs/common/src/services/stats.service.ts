@@ -91,8 +91,6 @@ export class StatsService extends CoreService implements IStatsService {
         multiplier
       );
 
-      console.log({ metrics });
-
       const docData = Object.assign({}, metrics, {
         modificationDate: new Date().toISOString(),
       });

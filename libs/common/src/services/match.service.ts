@@ -145,7 +145,6 @@ export class MatchService extends CoreService implements IMatchService {
   }
 
   private async calculateStats(matchResult: IMatchResult, multiplier = 1) {
-    console.debug('calculateStats', matchResult, multiplier);
     const statsService = new StatsService();
     await statsService.generateStats(matchResult, { multiplier });
   }
