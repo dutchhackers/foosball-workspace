@@ -261,7 +261,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
       }
 
       // Send ACK, to prevent time-out
-      SlackHelper.acknowledge(res);
+      await SlackHelper.acknowledge(res);
 
       const homeTeam = [team1player1];
       if (team1player2) homeTeam.push(team1player2);
