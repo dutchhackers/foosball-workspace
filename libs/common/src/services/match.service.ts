@@ -111,7 +111,7 @@ export class MatchService extends CoreService implements IMatchService {
       awayTeam: awayTeamData,
     });
 
-    const match = await this.getMatch(docRef.id);
+    // const match = await this.getMatch(docRef.id);
 
     // TODO: fix publisher!
     // const publisher = new Publisher();
@@ -145,6 +145,7 @@ export class MatchService extends CoreService implements IMatchService {
   }
 
   private async calculateStats(matchResult: IMatchResult, multiplier = 1) {
+    console.debug('calculateStats', matchResult, multiplier);
     const statsService = new StatsService();
     await statsService.generateStats(matchResult, { multiplier });
   }
