@@ -2,7 +2,7 @@ import * as logger from 'firebase-functions/logger';
 
 import { onRequest } from 'firebase-functions/v2/https';
 import { setGlobalOptions } from 'firebase-functions/v2/options';
-import { onMessagePublished } from 'firebase-functions/v2/pubsub';
+import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 
 import './config';
 
@@ -28,17 +28,18 @@ export const slackWebhook = onRequest({ memory: '2GiB', timeoutSeconds: 120 }, a
 
 logger.info('Slack Webhook function initialized');
 
-// New PubSub trigger for new-match events
-export const onNewMatch = onMessagePublished('new-match', async event => {
-  const matchResult = event.data.message.json as MatchResult;
-  const publishTime = event.data.message.publishTime;
+// Firestore trigger for new matches
+export const onNewMatch = onDocumentCreated('matches/{matchId}', async event => {
+  const matchData = event.data?.data();
 
-  logger.info('New match event received:', {
-    matchResult,
-    publishTime,
-    messageId: event.data.message.messageId,
-    publisherData: event.data.message.attributes,
-  });
+  // Only process if document exists and has toto field
+  if (!matchData || !matchData.toto) {
+    logger.info('Skipping document - no data or toto field');
+    return;
+  }
+
+  const matchResult = matchData as MatchResult;
+  logger.info('New match created:', { matchId: event.params.matchId, matchResult });
 
   const homeTeam = [...matchResult.homeTeamIds];
   const awayTeam = [...matchResult.awayTeamIds];
@@ -52,7 +53,7 @@ export const onNewMatch = onMessagePublished('new-match', async event => {
   const slackClient = new WebClient(SLACK_OAUTH_ACCESS_TOKEN);
 
   return slackClient.chat.postMessage({
-    channel: 'C044RKF18VA', //SLACK_DEDICATED_CHANNEL,
+    channel: SLACK_DEDICATED_CHANNEL,
     text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, matchResult.finalScore),
   });
 });
