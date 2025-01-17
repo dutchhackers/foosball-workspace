@@ -100,10 +100,6 @@ export class MatchService extends CoreService implements IMatchService {
     const docRef = this.db.collection(MATCHES_COLLECTION).doc();
     await docRef.set(data);
 
-    // TODO: we should end function here
-    // TODO: publish 'new match' event
-    // TODO: code below should be handled in a subscriber
-
     // Calculate stats
     await this.calculateStats({
       creationDate: data.creationDate,
@@ -115,12 +111,6 @@ export class MatchService extends CoreService implements IMatchService {
       homeTeam: homeTeamData,
       awayTeam: awayTeamData,
     });
-
-    // const match = await this.getMatch(docRef.id);
-
-    // TODO: fix publisher!
-    // const publisher = new Publisher();
-    // await publisher.publishMessage(serialize(match), 'match-result');
   }
 
   async deleteMatch(matchId: string): Promise<void> {

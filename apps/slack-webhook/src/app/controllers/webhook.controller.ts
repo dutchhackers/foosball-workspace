@@ -275,17 +275,7 @@ router.post('/interactive', async (req: Request, res: Response) => {
         finalScore,
       });
 
-      await matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
-
-      const players = await playerService.getPlayersById([...homeTeam, ...awayTeam]);
-
-      const homeTeamString = SlackHelper.concatPlayersString(homeTeam, players);
-      const awayTeamString = SlackHelper.concatPlayersString(awayTeam, players);
-
-      return slackClient.chat.postMessage({
-        channel: SLACK_DEDICATED_CHANNEL || channelId,
-        text: SlackHelper.buildMatchResultString(homeTeamString, awayTeamString, finalScore),
-      });
+      return matchService.addSimpleMatchResult(homeTeam, awayTeam, finalScore);
     }
     case Callback.UPDATE_ME: {
       const { nickname, status, quote } = submission;

@@ -32,11 +32,11 @@
     "firebase": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "firebase --config=firebase.json --project=m4m-foosball-competition"
+        "command": "firebase --config=firebase.json --project=foosball-af8b7"
       },
       "configurations": {
         "production": {
-          "command": "firebase --config=firebase.json --project=m4m-foosball-competition"
+          "command": "firebase --config=firebase.json --project=foosball-af8b7"
         }
       }
     },

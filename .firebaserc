@@ -1,6 +1,7 @@
 {
   "targets": {},
   "projects": {
-    "default": "m4m-foosball-competition"
+    "default": "foosball-af8b7",
+    "dev": "m4m-foosball-competition"
   }
 }
