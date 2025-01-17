@@ -5,6 +5,7 @@ import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
 import { CoreService } from './abstract-service';
 import { StatsService } from './stats.service';
+import { PubSub } from '@google-cloud/pubsub';
 // import { StatsService } from './stats.service';
 export { MatchServiceHelper } from './match-service-helper';
 
@@ -100,9 +101,8 @@ export class MatchService extends CoreService implements IMatchService {
     const docRef = this.db.collection(MATCHES_COLLECTION).doc();
     await docRef.set(data);
 
-    // TODO: we should end function here
-    // TODO: publish 'new match' event
-    // TODO: code below should be handled in a subscriber
+    // Publish new match event
+    await this.publishNewMatchEvent(docRef.id);
 
     // Calculate stats
     await this.calculateStats({
@@ -115,12 +115,6 @@ export class MatchService extends CoreService implements IMatchService {
       homeTeam: homeTeamData,
       awayTeam: awayTeamData,
     });
-
-    // const match = await this.getMatch(docRef.id);
-
-    // TODO: fix publisher!
-    // const publisher = new Publisher();
-    // await publisher.publishMessage(serialize(match), 'match-result');
   }
 
   async deleteMatch(matchId: string): Promise<void> {
@@ -179,6 +173,36 @@ export class MatchService extends CoreService implements IMatchService {
     // Validate: check uniqueness of players
     if (checkIfDuplicateExists([...homeTeam, ...awayTeam])) {
       throw Error('Duplicate player entry found');
+    }
+  }
+
+  private async publishNewMatchEvent(matchId: string): Promise<void> {
+    try {
+      const pubsub = new PubSub();
+      const topicName = 'new-match';
+
+      // Get topic reference
+      const topic = pubsub.topic(topicName);
+
+      // Check if topic exists
+      const [exists] = await topic.exists();
+      if (!exists) {
+        console.log(`Topic ${topicName} does not exist. Please create it first using Google Cloud Console or gcloud CLI.`);
+        return;
+      }
+
+      // Get full match data
+      const match = await this.getMatch(matchId);
+
+      // Prepare and publish message
+      const data = JSON.stringify(match);
+      const dataBuffer = Buffer.from(data);
+      await topic.publish(dataBuffer);
+
+      console.log(`Published new-match event for match ${matchId}`);
+    } catch (error) {
+      console.error('Error publishing new-match event:', error);
+      throw error;
     }
   }
 }
