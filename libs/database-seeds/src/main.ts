@@ -24,11 +24,11 @@ async function main() {
   }
 
   try {
-    const userSeeder = new PlayerSeeder();
+    const playerSeeder = new PlayerSeeder();
 
-    // Seed users first
-    const userData = await loadJsonData<{ users: any[] }>('players.json');
-    await userSeeder.seed(db, userData.users);
+    // Seed players first
+    const playerData = await loadJsonData<{ players: any[] }>('players.json');
+    await playerSeeder.seed(db, playerData.players);
 
     console.log('✅ Seeding completed');
     process.exit(0);
