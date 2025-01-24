@@ -1,5 +1,5 @@
 import { IPlayerStats } from '../interfaces/player.interface';
-import { IMatchResult } from '../models';
+import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils/various';
 
 enum EntityType {

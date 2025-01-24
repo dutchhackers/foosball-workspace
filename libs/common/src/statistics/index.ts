@@ -5,4 +5,5 @@ export * from './match-service-helper';
 export * from './metrics';
 export * from './stats.service';
 export * from './stats.util';
+export * from './team-side.enum';
 export * from './time-dimension';

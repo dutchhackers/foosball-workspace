@@ -1,4 +1,4 @@
-import { IFinalScore } from "../types";
+import { IFinalScore } from '../match/final-score.type';
 
 export const totoResult = (score: IFinalScore) => {
   if (score[0] > score[1]) {
