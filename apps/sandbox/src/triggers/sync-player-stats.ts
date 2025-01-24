@@ -42,13 +42,13 @@ async function getPlayerMatches(
     startDate?: string;
   }
 ) {
-  const { maxSize = 10, startDate = getDefaultStartDate() } = options || {};
+  const { maxSize = 1000, startDate = getDefaultStartDate() } = options || {};
 
   const query = db
     .collection('matches')
     .where('_members', 'array-contains', playerId)
-    .orderBy('matchDate', 'desc')
-    .where('matchDate', '<=', startDate)
+    .orderBy('matchDate', 'asc')
+    .where('matchDate', '>=', startDate)
     .limit(maxSize);
 
   return query.get();
