@@ -13,13 +13,13 @@ interface Player {
 }
 
 export class PlayerSeeder implements Seeder<Player> {
-  async seed(db: Firestore, users: Player[]): Promise<void> {
+  async seed(db: Firestore, players: Player[]): Promise<void> {
     const batch = db.batch();
 
-    for (const user of users) {
-      const ref = db.collection('users').doc(user.id);
+    for (const player of players) {
+      const ref = db.collection('players').doc(player.id);
       batch.set(ref, {
-        ...user,
+        ...player,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
@@ -29,7 +29,7 @@ export class PlayerSeeder implements Seeder<Player> {
   }
 
   async clear(db: Firestore): Promise<void> {
-    const snapshot = await db.collection('users').get();
+    const snapshot = await db.collection('players').get();
     const batch = db.batch();
 
     snapshot.docs.forEach(doc => {
