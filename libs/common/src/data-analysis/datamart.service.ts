@@ -1,8 +1,8 @@
 import { IMatchResult, MatchResult } from '../models/match-result';
-import { CoreService } from './abstract-service';
-import { MatchService } from './match.service';
-import { MatchServiceHelper } from '../data-analysis/match-service-helper';
-import { ICubeItem, IMatchCubeItem } from '../data-analysis';
+import { CoreService } from '../services/abstract-service';
+import { MatchService } from '../services/match.service';
+import { MatchServiceHelper } from './match-service-helper';
+import { ICubeItem, IMatchCubeItem } from '.';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';
 
