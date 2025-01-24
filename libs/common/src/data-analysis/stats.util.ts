@@ -1,6 +1,6 @@
 import { IPlayerStats } from '../interfaces/player.interface';
 import { IMatchResult } from '../models';
-import { checkFlawlessVictory, checkSuckerPunch } from './various';
+import { checkFlawlessVictory, checkSuckerPunch } from '../utils/various';
 
 enum EntityType {
   PLAYER,

@@ -4,7 +4,7 @@ import { IFinalScore } from '../types';
 import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
 import { CoreService } from './abstract-service';
-import { StatsService } from './stats.service';
+import { StatsService } from '../data-analysis/stats.service';
 // import { StatsService } from './stats.service';
 export { MatchServiceHelper } from '../data-analysis/match-service-helper';
 

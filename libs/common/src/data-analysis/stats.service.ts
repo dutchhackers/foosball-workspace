@@ -3,8 +3,8 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { IMatchResult } from '../models';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils';
 import { Collection } from '../utils/firestore-db';
-import { CoreService } from './abstract-service';
-import { IMetrics } from '../data-analysis';
+import { CoreService } from '../services/abstract-service';
+import { IMetrics } from '.';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 
