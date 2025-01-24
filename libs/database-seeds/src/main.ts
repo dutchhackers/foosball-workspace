@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { PlayerSeeder } from './lib/seeders/player.seeder';
+import { MatchSeeder } from './lib/seeders/match.seeder';
 import { loadJsonData } from './lib/utils/file-loader';
 
 async function main() {
@@ -25,10 +26,15 @@ async function main() {
 
   try {
     const playerSeeder = new PlayerSeeder();
+    const matchSeeder = new MatchSeeder();
 
     // Seed players first
     const playerData = await loadJsonData<{ players: any[] }>('players.json');
     await playerSeeder.seed(db, playerData.players);
+
+    // Seed matches next
+    const matchData = await loadJsonData<{ matches: any[] }>('matches.json');
+    await matchSeeder.seed(db, matchData.matches);
 
     console.log('✅ Seeding completed');
     process.exit(0);
