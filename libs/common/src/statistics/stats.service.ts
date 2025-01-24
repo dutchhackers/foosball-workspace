@@ -4,7 +4,7 @@ import { CoreService } from '../core/abstract-service';
 import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils';
 import { Collection } from '../core/utils/firestore-db';
-import { IMetrics } from './metrics';
+import { IMetrics } from './metrics.interface';
 import { IEntityMatchResult } from './statistics.interface';
 import { EntityType } from './statistics.enum';
 

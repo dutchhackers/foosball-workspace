@@ -1,6 +1,6 @@
 export * from './datamart.service';
 export * from './match-service-helper.util';
-export * from './metrics';
+export * from './metrics.interface';
 export * from './statistics.enum';
 export * from './statistics.interface';
 export * from './stats.service';
