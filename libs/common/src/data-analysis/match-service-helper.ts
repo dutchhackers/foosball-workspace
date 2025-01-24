@@ -1,7 +1,6 @@
-import { TimeDimension } from './../models/time-dimension';
+import { IMatchCubeItem, ICubeItem } from '.';
 import { MatchResult } from '../models';
-import { checkFlawlessVictory } from '../utils';
-import { ICubeItem, IMatchCubeItem } from '../interfaces';
+import { TimeDimension } from './time-dimension';
 // import * as moment from 'moment';
 // import { ICubeItem } from '../models/cube-item';
 // import { IMatchCubeItem } from '../models/match-cube-item';

@@ -1,9 +1,10 @@
 import { FieldValue } from 'firebase-admin/firestore';
 
-import { IMatchResult, IMetrics } from '../models';
+import { IMatchResult } from '../models';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils';
 import { Collection } from '../utils/firestore-db';
 import { CoreService } from './abstract-service';
+import { IMetrics } from '../data-analysis';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 

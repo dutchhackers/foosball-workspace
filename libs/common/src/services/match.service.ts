@@ -6,7 +6,7 @@ import { Collection } from '../utils/firestore-db';
 import { CoreService } from './abstract-service';
 import { StatsService } from './stats.service';
 // import { StatsService } from './stats.service';
-export { MatchServiceHelper } from './match-service-helper';
+export { MatchServiceHelper } from '../data-analysis/match-service-helper';
 
 const MATCHES_COLLECTION = Collection.MATCHES;
 const PLAYERS_COLLECTION = Collection.PLAYERS;
