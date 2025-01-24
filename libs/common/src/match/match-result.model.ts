@@ -1,5 +1,4 @@
 import { custom, list, object, serializable } from 'serializr';
-// import * as moment from 'moment';
 import { FirestoreDocument } from '../core/document.model';
 import { checkFlawlessVictory } from '../core/utils';
 import { stringArrayDeserializer, stringArraySerializer } from '../core/utils/serializers/string-array.serializer';

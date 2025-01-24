@@ -1,8 +1,8 @@
 import { CoreService } from '../core/abstract-service';
-import { IPlayer } from '../player';
-import { StatsService } from '../statistics/stats.service';
 import { checkIfDuplicateExists, totoResult } from '../core/utils';
 import { Collection } from '../core/utils/firestore-db';
+import { IPlayer } from '../player';
+import { StatsService } from '../statistics/stats.service';
 import { IFinalScore } from './final-score.type';
 import { IMatchResult, MatchResult } from './match-result.model';
 

@@ -5,23 +5,10 @@ import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils';
 import { Collection } from '../core/utils/firestore-db';
 import { IMetrics } from './metrics';
+import { IEntityMatchResult } from './common.interface';
+import { EntityType } from './common.enum';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
-
-// deprecated
-enum EntityType {
-  PLAYER,
-  TEAM,
-}
-interface IEntityMatchResult {
-  entityKey: string;
-  entityType: EntityType;
-  matchDate: string;
-  didWin: boolean;
-  didLose: boolean;
-  hasHumiliation: boolean;
-  hasSuckerPunch: boolean;
-}
 
 export interface IStatsService {
   generateStats(matchResult: any): Promise<any>;

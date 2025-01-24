@@ -1,21 +1,8 @@
 import { IPlayerStats } from '../player/player.interface';
 import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils/various.utils';
-
-enum EntityType {
-  PLAYER,
-  TEAM,
-}
-
-interface IEntityMatchResult {
-  entityKey: string;
-  entityType: EntityType;
-  matchDate: string;
-  didWin: boolean;
-  didLose: boolean;
-  hasHumiliation: boolean;
-  hasSuckerPunch: boolean;
-}
+import { IEntityMatchResult } from './common.interface';
+import { EntityType } from './common.enum';
 
 export class StatsUtils {
   static calculatePlayerMatchResult(player: string, match: IMatchResult): IEntityMatchResult {
