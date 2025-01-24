@@ -1,0 +1,36 @@
+{
+  "matches": [
+    {
+      "toto": 1,
+      "matchDate": "2024-01-10T14:51:30.274Z",
+      "finalScore": [10, 4],
+      "homeTeamIds": ["user.one@example.com", "user.two@example.com"],
+      "awayTeamIds": ["user.three@example.com", "user.four@example.com"],
+      "homeTeam": [
+        {
+          "id": "user.one@example.com",
+          "name": "User One",
+          "avatar": "https://example.com/avatar1.jpg"
+        },
+        {
+          "id": "user.two@example.com",
+          "name": "User Two",
+          "avatar": "https://example.com/avatar2.jpg"
+        }
+      ],
+      "awayTeam": [
+        {
+          "id": "user.three@example.com",
+          "name": "User Three",
+          "avatar": "https://example.com/avatar3.jpg"
+        },
+        {
+          "id": "user.four@example.com",
+          "name": "User Four",
+          "avatar": "https://example.com/avatar4.jpg"
+        }
+      ],
+      "creationDate": "2024-01-10T14:51:30.461Z"
+    }
+  ]
+}
