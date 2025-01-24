@@ -1,8 +1,8 @@
 import { custom, list, object, serializable } from 'serializr';
 // import * as moment from 'moment';
-import { FirestoreDocument } from '../models/document';
-import { checkFlawlessVictory } from '../utils';
-import { stringArrayDeserializer, stringArraySerializer } from '../utils/serializers/string-array.serializer';
+import { FirestoreDocument } from '../core/document.model';
+import { checkFlawlessVictory } from '../core/utils';
+import { stringArrayDeserializer, stringArraySerializer } from '../core/utils/serializers/string-array.serializer';
 import { IFinalScore } from './final-score.type';
 
 export interface IMatchResultInput {

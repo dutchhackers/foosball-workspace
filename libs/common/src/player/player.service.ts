@@ -1,6 +1,6 @@
-import { IPlayer, IPlayerStats } from '.';
 import { CoreService } from '../core/abstract-service';
-import { Player } from '../models';
+import { IPlayer, IPlayerStats } from './player.interface';
+import { Player } from './player.model';
 
 const PLAYERS_COLLECTION = 'players';
 
