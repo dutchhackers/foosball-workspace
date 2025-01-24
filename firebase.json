@@ -27,6 +27,12 @@
       "ignore": ["*.local"]
     },
     {
+      "codebase": "sandbox",
+      "source": "dist/apps/sandbox",
+      "runtime": "nodejs20",
+      "ignore": ["*.local"]
+    },
+    {
       "codebase": "slack-webhook",
       "source": "dist/apps/slack-webhook",
       "runtime": "nodejs20",
