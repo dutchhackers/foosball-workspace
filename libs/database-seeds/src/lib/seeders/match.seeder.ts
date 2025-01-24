@@ -1,8 +1,12 @@
+import { IMatchResult } from '@foosball/common';
 import { Firestore } from 'firebase-admin/firestore';
 import { Seeder } from '../types/seeder.interface';
-import { IMatchResult } from '@foosball/common';
 
-export class MatchSeeder implements Seeder<IMatchResult> {
+interface Match extends IMatchResult {
+  _members: string[];
+}
+
+export class MatchSeeder implements Seeder<Match> {
   async seed(db: Firestore, matches: IMatchResult[]): Promise<void> {
     const batch = db.batch();
 
@@ -12,6 +16,7 @@ export class MatchSeeder implements Seeder<IMatchResult> {
       batch.set(ref, {
         ...match,
         id: matchId,
+        _members: [...match.homeTeamIds, ...match.awayTeamIds],
       });
     }
 

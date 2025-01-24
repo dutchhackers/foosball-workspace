@@ -1,5 +1,5 @@
 // import { DataService } from '@foosball/api/data';
-import { IPlayer } from '../interfaces';
+import { IPlayer, IPlayerStats } from '../interfaces';
 import { Player } from '../models';
 import { CoreService } from './abstract-service';
 
@@ -104,6 +104,26 @@ export class PlayerService extends CoreService {
     await docRef.set(Object.assign(payload, { modificationDate: new Date().toISOString() }), { merge: true });
   }
 
+  async updatePlayerStats(id: string, stats: Partial<IPlayerStats>): Promise<void> {
+    if (!id) {
+      throw Error('id is null');
+    }
+
+    const exists: boolean = await this.exists(id);
+    if (!exists) {
+      throw Error('Player not found');
+    }
+
+    const docRef = this.db.collection(PLAYERS_COLLECTION).doc(id);
+    await docRef.set(
+      {
+        ...stats,
+        modificationDate: new Date().toISOString(),
+      },
+      { merge: true }
+    );
+  }
+
   async getPlayer(id: string): Promise<Player> {
     const docRef = this.db.collection(PLAYERS_COLLECTION).doc(id);
     const player = await this.getDocumentAsObject<Player>(docRef, Player);
@@ -141,7 +161,8 @@ export class PlayerService extends CoreService {
   }
 
   private async getData() {
-    const snapshotItems = await this.db.collection(PLAYERS_COLLECTION)
+    const snapshotItems = await this.db
+      .collection(PLAYERS_COLLECTION)
       // .orderBy('createdAt', 'desc')
       // .limitToLast(5)
       .get();

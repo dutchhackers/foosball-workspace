@@ -1,0 +1,1 @@
+export { syncPlayerStats } from './triggers';

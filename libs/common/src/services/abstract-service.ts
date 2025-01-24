@@ -1,7 +1,7 @@
 // TODO: refactor out serializer
 import { deserialize, ClazzOrModelSchema } from 'serializr';
 
-import { db } from "../config/firebase.config";
+import { db } from '../config/firebase.config';
 
 export abstract class CoreService {
   //privates?

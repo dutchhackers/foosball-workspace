@@ -7,6 +7,7 @@ import { CoreService } from './abstract-service';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 
+// deprecated
 enum EntityType {
   PLAYER,
   TEAM,
