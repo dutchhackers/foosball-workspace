@@ -1,7 +1,7 @@
 import { ICubeItem, IMatchCubeItem } from '.';
 import { IMatchResult, MatchResult } from '../match/match-result.model';
 import { MatchService } from '../match/match.service';
-import { CoreService } from '../services/abstract-service';
+import { CoreService } from '../core/abstract-service';
 import { MatchServiceHelper } from './match-service-helper';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';

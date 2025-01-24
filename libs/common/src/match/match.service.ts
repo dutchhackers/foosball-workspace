@@ -1,10 +1,10 @@
-import { IPlayer } from '../interfaces';
+import { CoreService } from '../core/abstract-service';
+import { IPlayer } from '../player';
 import { StatsService } from '../statistics/stats.service';
 import { checkIfDuplicateExists, totoResult } from '../utils';
 import { Collection } from '../utils/firestore-db';
-import { CoreService } from '../services/abstract-service';
-import { IMatchResult, MatchResult } from './match-result.model';
 import { IFinalScore } from './final-score.type';
+import { IMatchResult, MatchResult } from './match-result.model';
 
 const MATCHES_COLLECTION = Collection.MATCHES;
 const PLAYERS_COLLECTION = Collection.PLAYERS;

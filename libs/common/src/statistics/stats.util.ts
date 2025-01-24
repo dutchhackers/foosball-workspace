@@ -1,4 +1,4 @@
-import { IPlayerStats } from '../interfaces/player.interface';
+import { IPlayerStats } from '../player/player.interface';
 import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../utils/various';
 

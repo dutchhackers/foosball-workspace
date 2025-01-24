@@ -1,7 +1,7 @@
 import { FirestoreDocument } from './document';
 import { serializable, custom } from 'serializr';
 import { serializeFunction, deserializeFunctionIgnoreNull, numberMetric } from '../utils/serializers/common.serializer';
-import { IPlayer } from '../interfaces';
+import { IPlayer } from '../player';
 
 const DEFAULT_AVATAR_URL = 'https://picsum.photos/200?grayscale&blur=2';
 
