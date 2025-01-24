@@ -1,0 +1,70 @@
+{
+  "players": [
+    {
+      "id": "mschilling@move4mobile.com",
+      "name": "Michael Schilling",
+      "displayName": "Michael",
+      "avatar": "https://github.com/mschilling.png?size=200",
+      "slackId": "U05611CAN",
+      "active": true
+    },
+    {
+      "id": "cvandinter@move4mobile.com",
+      "displayName": "Cas :caskroepprince:",
+      "quote": ":oof:",
+      "nickname": "Shippin' it :shipit:",
+      "highestWinStreak": 7,
+      "active": true,
+      "avatar": "https://github.com/cassshh.png?size=200",
+      "slackId": "U25SE1TA8",
+      "name": "Cas van Dinter"
+    },
+    {
+      "id": "gvanvilsteren@move4mobile.com",
+      "name": "Guido van Vilsteren",
+      "slackId": "U01R8G88UGP",
+      "avatar": "https://ca.slack-edge.com/T04651L9Q-U01R8G88UGP-99b8d3e47560-512",
+      "active": true
+    },
+    {
+      "id": "awesthuis@move4mobile.com",
+      "slackId": "U8N20RNSK",
+      "name": "Aalt Westhuis",
+      "avatar": "https://github.com/aaltw.png?size=200"
+    },
+    {
+      "id": "nratering@move4mobile.com",
+      "slackId": null,
+      "name": "Nick Ratering",
+      "avatar": "https://github.com/nratering.png?size=200",
+      "active": true
+    },
+    {
+      "id": "bdegroot@move4mobile.com",
+      "displayName": "Bas :kroepnbas:",
+      "quote": "Beauty! ",
+      "nickname": ":bas:",
+      "active": true,
+      "avatar": "https://github.com/bdegrootm4m.png?size=200",
+      "slackId": "U8PCWGMHS",
+      "name": "Bas de Groot"
+    },
+    {
+      "id": "bkramp@move4mobile.com",
+      "name": "Bas Kramp",
+      "active": true,
+      "slackId": "U03BKHK95C7",
+      "avatar": "https://ca.slack-edge.com/T04651L9Q-U03BKHK95C7-e1011220c21d-512"
+    },
+    {
+      "id": "astrating@move4mobile.com",
+      "highestWinStreak": 14,
+      "displayName": "Arwin",
+      "totalHumiliations": 2,
+      "active": true,
+      "avatar": "https://github.com/ArwinStrating.png?size=200",
+      "slackId": "U3XSRFKJ7",
+      "name": "Arwin Strating"
+    }
+  ]
+}

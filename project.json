@@ -1,0 +1,12 @@
+{
+  "name": "@foosball/source",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run database-seeds:build", "node dist/libs/database-seeds/main.js"]
+      }
+    }
+  }
+}
