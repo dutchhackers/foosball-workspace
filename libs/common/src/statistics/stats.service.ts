@@ -5,8 +5,8 @@ import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils';
 import { Collection } from '../core/utils/firestore-db';
 import { IMetrics } from './metrics';
-import { IEntityMatchResult } from './common.interface';
-import { EntityType } from './common.enum';
+import { IEntityMatchResult } from './statistics.interface';
+import { EntityType } from './statistics.enum';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
 

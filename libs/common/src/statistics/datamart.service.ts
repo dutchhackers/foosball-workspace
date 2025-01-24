@@ -2,7 +2,7 @@ import { ICubeItem, IMatchCubeItem } from '.';
 import { IMatchResult, MatchResult } from '../match/match-result.model';
 import { MatchService } from '../match/match.service';
 import { CoreService } from '../core/abstract-service';
-import { MatchServiceHelper } from './match-service-helper';
+import { MatchServiceHelper } from './match-service-helper.util';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';
 

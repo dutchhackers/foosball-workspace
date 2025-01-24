@@ -1,4 +1,4 @@
-import { EntityType } from './common.enum';
+import { EntityType } from './statistics.enum';
 
 export interface IMatchCubeItem {
   _key: string;

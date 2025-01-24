@@ -1,8 +1,8 @@
 import { IPlayerStats } from '../player/player.interface';
 import { IMatchResult } from '../match/match-result.model';
 import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils/various.utils';
-import { IEntityMatchResult } from './common.interface';
-import { EntityType } from './common.enum';
+import { IEntityMatchResult } from './statistics.interface';
+import { EntityType } from './statistics.enum';
 
 export class StatsUtils {
   static calculatePlayerMatchResult(player: string, match: IMatchResult): IEntityMatchResult {
