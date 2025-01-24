@@ -1,7 +1,6 @@
-// import { DataService } from '@foosball/api/data';
-import { IPlayer, IPlayerStats } from '../interfaces';
-import { Player } from '../models';
-import { CoreService } from './abstract-service';
+import { CoreService } from '../core/abstract-service';
+import { IPlayer, IPlayerStats } from './player.interface';
+import { Player } from './player.model';
 
 const PLAYERS_COLLECTION = 'players';
 
@@ -181,12 +180,4 @@ export class PlayerService extends CoreService {
       // closedAt: FirestoreTimestampToDate(data.closedAt),
     };
   }
-
-  // private wrapAll(snapshot: FirebaseFirestore.QuerySnapshot): Player[] {
-  //   const docs: Player[] = [];
-  //   for (const doc of snapshot.docs) {
-  //     docs.push(<Player>doc.data());
-  //   }
-  //   return docs;
-  // }
 }

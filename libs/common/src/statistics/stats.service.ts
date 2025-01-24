@@ -1,26 +1,14 @@
 import { FieldValue } from 'firebase-admin/firestore';
 
-import { IMatchResult, IMetrics } from '../models';
-import { checkFlawlessVictory, checkSuckerPunch } from '../utils';
-import { Collection } from '../utils/firestore-db';
-import { CoreService } from './abstract-service';
+import { CoreService } from '../core/abstract-service';
+import { IMatchResult } from '../match/match-result.model';
+import { checkFlawlessVictory, checkSuckerPunch } from '../core/utils';
+import { Collection } from '../core/utils/firestore-db';
+import { IMetrics } from './metrics.interface';
+import { IEntityMatchResult } from './statistics.interface';
+import { EntityType } from './statistics.enum';
 
 const PLAYERS_COLLECTION = Collection.PLAYERS;
-
-// deprecated
-enum EntityType {
-  PLAYER,
-  TEAM,
-}
-interface IEntityMatchResult {
-  entityKey: string;
-  entityType: EntityType;
-  matchDate: string;
-  didWin: boolean;
-  didLose: boolean;
-  hasHumiliation: boolean;
-  hasSuckerPunch: boolean;
-}
 
 export interface IStatsService {
   generateStats(matchResult: any): Promise<any>;

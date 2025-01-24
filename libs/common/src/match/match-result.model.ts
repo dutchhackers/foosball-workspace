@@ -1,10 +1,8 @@
-import { serializable, custom, list, object } from 'serializr';
-// import * as moment from 'moment';
-import { DateTime } from 'luxon';
-import { FirestoreDocument } from './document';
-import { stringArraySerializer, stringArrayDeserializer } from '../utils/serializers/string-array.serializer';
-import { checkFlawlessVictory } from '../utils';
-import { IFinalScore } from '../types';
+import { custom, list, object, serializable } from 'serializr';
+import { FirestoreDocument } from '../core/document.model';
+import { checkFlawlessVictory } from '../core/utils';
+import { stringArrayDeserializer, stringArraySerializer } from '../core/utils/serializers/string-array.serializer';
+import { IFinalScore } from './final-score.type';
 
 export interface IMatchResultInput {
   matchDate?: string;

@@ -1,13 +1,8 @@
-// import * as _ from 'lodash';
-import { IMatchResult, MatchResult } from '../models/match-result';
-import { MatchService } from './match.service';
-import { CoreService } from './abstract-service';
-// import moment = require('moment');
-import { checkFlawlessVictory } from '../utils';
-// import { ICubeItem } from '../models/cube-item';
-import { MatchServiceHelper } from './match-service-helper';
-import { ICubeItem, IMatchCubeItem } from '../interfaces';
-// import { IMatchCubeItem } from '../models/match-cube-item';
+import { ICubeItem, IMatchCubeItem } from '.';
+import { IMatchResult, MatchResult } from '../match/match-result.model';
+import { MatchService } from '../match/match.service';
+import { CoreService } from '../core/abstract-service';
+import { MatchServiceHelper } from './match-service-helper.util';
 
 const MATCHES_BY_PLAYER_COLLECTION = 'data/cubes';
 
@@ -37,13 +32,8 @@ export class DataMartService extends CoreService {
     });
   }
 
-  async saveData(
-    cubes: ICubeItem[] | IMatchCubeItem[],
-    collection: 'matches-by-player' | 'matches'
-  ): Promise<void> {
-    const rootRef = this.db.collection(
-      MATCHES_BY_PLAYER_COLLECTION + '/' + collection
-    );
+  async saveData(cubes: ICubeItem[] | IMatchCubeItem[], collection: 'matches-by-player' | 'matches'): Promise<void> {
+    const rootRef = this.db.collection(MATCHES_BY_PLAYER_COLLECTION + '/' + collection);
 
     const batch = this.db.batch();
     for (const ci of cubes) {
@@ -57,17 +47,9 @@ export class DataMartService extends CoreService {
     await batch.commit();
   }
 
-  async getCubeData(
-    collection: 'matches-by-player' | 'matches',
-    opts: Partial<ICubeFilterOpts> = {}
-  ): Promise<any[]> {
-    const options: ICubeFilterOpts = Object.assign(
-      { limit: 100, order: 'desc' },
-      opts
-    );
-    let query: any = this.db.collection(
-      MATCHES_BY_PLAYER_COLLECTION + '/' + collection
-    );
+  async getCubeData(collection: 'matches-by-player' | 'matches', opts: Partial<ICubeFilterOpts> = {}): Promise<any[]> {
+    const options: ICubeFilterOpts = Object.assign({ limit: 100, order: 'desc' }, opts);
+    let query: any = this.db.collection(MATCHES_BY_PLAYER_COLLECTION + '/' + collection);
 
     if (options.player) {
       query = query.where('dim_player', '==', options.player);
@@ -95,9 +77,7 @@ export class DataMartService extends CoreService {
     const cube: ICubeItem[] = [];
 
     for (const m of this._matchData) {
-      const matchCubeItems = MatchServiceHelper.GetMatchPlayerCube(
-        m as MatchResult
-      );
+      const matchCubeItems = MatchServiceHelper.GetMatchPlayerCube(m as MatchResult);
       cube.push(...matchCubeItems);
     }
 
@@ -117,7 +97,7 @@ export class DataMartService extends CoreService {
 
   getUniquePlayerIds(): string[] {
     const arrPlayers = this._matchData
-      .map((p) => {
+      .map(p => {
         const playerIds = [...p.homeTeamIds, ...p.awayTeamIds];
         return playerIds;
       })

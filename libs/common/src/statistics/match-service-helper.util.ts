@@ -1,10 +1,6 @@
-import { TimeDimension } from './../models/time-dimension';
-import { MatchResult } from '../models';
-import { checkFlawlessVictory } from '../utils';
-import { ICubeItem, IMatchCubeItem } from '../interfaces';
-// import * as moment from 'moment';
-// import { ICubeItem } from '../models/cube-item';
-// import { IMatchCubeItem } from '../models/match-cube-item';
+import { IMatchCubeItem, ICubeItem } from '.';
+import { MatchResult } from '../match/match-result.model';
+import { TimeDimension } from './time-dimension';
 
 export class MatchServiceHelper {
   static GetMatchCube(match: MatchResult): IMatchCubeItem[] {
