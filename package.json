@@ -9,7 +9,7 @@
     "@nx/eslint": "20.3.3",
     "@nx/eslint-plugin": "20.3.3",
     "@nx/jest": "20.3.3",
-    "@nx/js": "20.3.3",
+    "@nx/js": "20.4.0",
     "@nx/node": "20.3.3",
     "@nx/workspace": "20.3.3",
     "@simondotm/nx-firebase": "^2.3.0",
